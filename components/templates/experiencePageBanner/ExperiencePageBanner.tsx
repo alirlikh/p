@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const ExperiencePageBanner = () => {
   return (
     <motion.div
-      className="flex flex-col items-center *:m-4 mb-16 text-center max-w-screen-md"
+      className="flex flex-col items-center *:m-4 mb-16 text-center max-w-3xl"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{
