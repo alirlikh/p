@@ -1,11 +1,16 @@
+"use client"
+
 import { motion } from "framer-motion";
 import ProjectCard from "../../card/projectCard/Project.card";
-import getProject from "@/data/server/getProject";
 import { IProject } from "@/data";
+import { FC } from "react";
 
-const ProjectList = async () => {
-  const projects = await getProject();
+export interface ProjectListProps {
+  projects:IProject[]
+}
 
+const ProjectList:FC<ProjectListProps> =  ({projects}) => {
+  
   const animationVariants = {
     initial: {
       y: -100,
@@ -28,7 +33,7 @@ const ProjectList = async () => {
       animate={"animate"}
       className="py-40 mx-auto flex flex-row items-center justify-center flex-wrap"
     >
-      {projects.map((project: IProject, index: number) => {
+      {projects?.map((project: IProject, index: number) => {
         return <ProjectCard key={index} project={project} />;
       })}
     </motion.div>
