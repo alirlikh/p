@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import DownloadButton from "@/components/materials/button/downloadButton/Download.button";
 import Link from "next/link";
 import Image from "next/image";
-import avatar from "../../../public/images/avatar.svg";
+import avatar from "../../../public/images/avatar.jpg";
 
 const LandingBannerSection = () => {
   return (
