@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { ArrowUpIcon } from "@/components/materials/icons/ArrowUp.icon";
 
 function GoTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -53,7 +54,7 @@ function GoTop() {
             className="w-16 h-16 rounded-full bg-gray-scale/80 backdrop-blur-xl"
           >
             <span className="text-purple-300">
-              {/* <ArrowUp color={"#bf84fc"} /> */}
+              <ArrowUpIcon color={"#bf84fc"} />
             </span>
           </motion.button>
         )}
