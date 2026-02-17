@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${ralewaySans.variable}  antialiased`}>
         <Header />
-        <main>
+        <main className="mt-5 sm:mt-36 ">
         {children}
         </main>
         <GoTop />

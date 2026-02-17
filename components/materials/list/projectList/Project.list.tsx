@@ -31,7 +31,7 @@ const ProjectList:FC<ProjectListProps> =  ({projects}) => {
       variants={animationVariants}
       initial={"initial"}
       animate={"animate"}
-      className="py-40 mx-auto flex flex-row items-center justify-center flex-wrap"
+      className="py-16 mx-auto flex flex-row items-center justify-center flex-wrap"
     >
       {projects?.map((project: IProject, index: number) => {
         return <ProjectCard key={index} project={project} />;

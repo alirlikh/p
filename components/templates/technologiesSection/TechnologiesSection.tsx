@@ -7,7 +7,7 @@ const TechnologiesSection = async () => {
   return (
     <section className="mt-60 mb-20">
       <div className="md:my-16 my-9 sm:my-10 flex justify-center items-center  sm:text-[30px] md:text-[50px] text-[20px] text-center ">
-        <h2 className="sm:max-w-[350px] md:max-w-[500px]  max-w-[300px] md:leading-[80px]">
+        <h2 className="sm:max-w-87.5 md:max-w-125  max-w-75 md:leading-20">
           The technologies I’ve been using...
         </h2>
       </div>
