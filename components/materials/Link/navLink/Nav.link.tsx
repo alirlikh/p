@@ -1,6 +1,8 @@
+"use client";
+
 import Link, { LinkProps } from "next/link";
 import { FC, HTMLAttributes } from "react";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 const NavLink: FC<LinkProps & HTMLAttributes<HTMLAnchorElement>> = ({
   href,
@@ -8,8 +10,9 @@ const NavLink: FC<LinkProps & HTMLAttributes<HTMLAnchorElement>> = ({
   className,
   ...props
 }) => {
-  const router = useRouter();
-  const activeNav = href === `${router.pathname}`;
+  
+  const pathname = usePathname()    
+  const activeNav = href === pathname;
 
   return (
     <Link
