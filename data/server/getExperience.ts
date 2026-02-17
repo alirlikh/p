@@ -1,8 +1,7 @@
-import { cache } from "react";
 import backendApi from "@/utils/backendApi";
 import { IExperience } from "../static/experince";
 
-const getExperience = cache(async () => {
+const getExperience = async () => {
   const response = await backendApi<IExperience>(`/experience`, {
     method: "GET",
   });
@@ -12,6 +11,6 @@ const getExperience = cache(async () => {
   // }
 
   return response!;
-});
+};
 
 export default getExperience;

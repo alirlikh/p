@@ -1,8 +1,14 @@
-import ProjectPageView from "@/components/templates/projectPageView/ProjectPage.view"
+import { lazy, Suspense } from "react";
+
+const ProjectPageView = lazy(
+  () => import("@/components/templates/projectPageView/ProjectPage.view"),
+);
 
 const page = () => {
   return (
-    <ProjectPageView />
-  )
-}
-export default page
+    <Suspense>
+      <ProjectPageView />
+    </Suspense>
+  );
+};
+export default page;

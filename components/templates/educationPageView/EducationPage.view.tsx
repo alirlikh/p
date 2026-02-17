@@ -1,11 +1,16 @@
-import EducationList from "@/components/materials/list/educationList/Education.list"
-import { div } from "framer-motion/client"
+import { lazy, Suspense } from "react";
+
+const EducationList = lazy(
+  () => import("@/components/materials/list/educationList/Education.list"),
+);
 
 const EducationPageView = () => {
   return (
     <section className="px-10">
-    <EducationList />
+      <Suspense>
+        <EducationList />
+      </Suspense>
     </section>
-  )
-}
-export default EducationPageView
+  );
+};
+export default EducationPageView;

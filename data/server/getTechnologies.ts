@@ -1,8 +1,7 @@
-import { cache } from "react";
 import backendApi from "@/utils/backendApi";
 import { ITechnology } from "../static/technology";
 
-const getTechnology = cache(async () => {
+const getTechnology = async () => {
   const response = await backendApi<ITechnology>(`/technology`, {
     method: "GET",
   });
@@ -12,6 +11,6 @@ const getTechnology = cache(async () => {
   // }
 
   return response!;
-});
+};
 
 export default getTechnology;

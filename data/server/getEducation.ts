@@ -1,8 +1,7 @@
-import { cache } from "react";
 import { IEducation } from "../static/education";
 import backendApi from "@/utils/backendApi";
 
-const getEducation = cache(async () => {
+const getEducation = async () => {
   const response = await backendApi<IEducation>(`/education`, {
     method: "GET",
   });
@@ -12,6 +11,6 @@ const getEducation = cache(async () => {
   // }
 
   return response!;
-});
+};
 
 export default getEducation;

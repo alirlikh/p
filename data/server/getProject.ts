@@ -1,8 +1,7 @@
-import { cache } from "react";
 import backendApi from "@/utils/backendApi";
 import { IProject } from "../static/project";
 
-const getProject = cache(async () => {
+const getProject = async () => {
   const response = await backendApi<IProject>(`/project`, {
     method: "GET",
   });
@@ -12,6 +11,6 @@ const getProject = cache(async () => {
   // }
 
   return response!;
-});
+};
 
 export default getProject;
