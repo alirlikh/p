@@ -1,3 +1,4 @@
+import Loader from "@/components/materials/loader/Loader";
 import ExperiencePageBanner from "../experiencePageBanner/ExperiencePageBanner";
 import { lazy, Suspense } from "react";
 
@@ -10,7 +11,7 @@ const ExperiencePageView = () => {
     <section className="p-4 px-8 md:px-12">
       <div className="flex flex-col items-center ">
         <ExperiencePageBanner />
-        <Suspense>
+        <Suspense fallback={<Loader />}>
           <ExperineceList />
         </Suspense>
       </div>

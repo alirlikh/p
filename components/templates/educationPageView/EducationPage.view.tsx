@@ -1,3 +1,4 @@
+import Loader from "@/components/materials/loader/Loader";
 import { lazy, Suspense } from "react";
 
 const EducationList = lazy(
@@ -7,7 +8,7 @@ const EducationList = lazy(
 const EducationPageView = () => {
   return (
     <section className="px-10">
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <EducationList />
       </Suspense>
     </section>

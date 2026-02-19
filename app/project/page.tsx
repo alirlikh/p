@@ -1,3 +1,4 @@
+import Loader from "@/components/materials/loader/Loader";
 import { lazy, Suspense } from "react";
 
 const ProjectPageView = lazy(
@@ -6,7 +7,7 @@ const ProjectPageView = lazy(
 
 const page = () => {
   return (
-    <Suspense>
+    <Suspense fallback={<Loader />}>
       <ProjectPageView />
     </Suspense>
   );
