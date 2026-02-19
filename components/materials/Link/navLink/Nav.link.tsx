@@ -10,14 +10,13 @@ const NavLink: FC<LinkProps & HTMLAttributes<HTMLAnchorElement>> = ({
   className,
   ...props
 }) => {
-  
-  const pathname = usePathname()    
+  const pathname = usePathname();
   const activeNav = href === pathname;
 
   return (
     <Link
       href={href}
-      className={`${activeNav ? "text-purple-300" : ""} ${className}  text-gray-300`}
+      className={`${activeNav ? "text-purple-300 font-bold" : ""} ${className}  text-gray-300`}
       {...props}
     >
       {children}

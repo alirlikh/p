@@ -43,11 +43,14 @@ export default function Header() {
   ];
   return (
     <header className="fixed p-3 left-1/2 transform -translate-x-1/2  max-w-80 bottom-16 md:max-w-155.5 md:top-0 md:bottom-auto z-10 ">
-      <nav className="bg-gray-scale/35  backdrop-blur-xl rounded-full px-5 py-2 overflow-auto no-scrollbar">
-        <ul className="flex flex-row p-2 justify-between  items-center ">
+      <nav className="bg-gray-scale/35  backdrop-blur-xl rounded-full px-5 py-2 ">
+        <ul className="flex flex-row p-2 justify-between  items-center overflow-auto  no-scrollbar">
           {menuItem?.map((item: IMenu) =>
             !item.isIcon ? (
-              <li className="mx-3 p-1 my-1 grow flex-1 shrink " key={item.id}>
+              <li
+                className="mx-3 p-1 my-1 grow flex-1 shrink font-semibold"
+                key={item.id}
+              >
                 <NavLink href={item.href}>{item.title}</NavLink>
               </li>
             ) : (
