@@ -42,8 +42,8 @@ export default function Header() {
     },
   ];
   return (
-    <header className="fixed p-3 left-1/2 transform -translate-x-1/2  max-w-80 bottom-16 md:max-w-[622px] md:top-0 md:bottom-auto z-10 ">
-      <nav className="bg-gray-scale/35  backdrop-blur-xl rounded-full px-5 py-2 h-[83px] overflow-auto no-scrollbar">
+    <header className="fixed p-3 left-1/2 transform -translate-x-1/2  max-w-80 bottom-16 md:max-w-155.5 md:top-0 md:bottom-auto z-10 ">
+      <nav className="bg-gray-scale/35  backdrop-blur-xl rounded-full px-5 py-2 overflow-auto no-scrollbar">
         <ul className="flex flex-row p-2 justify-between  items-center ">
           {menuItem?.map((item: IMenu) =>
             !item.isIcon ? (
