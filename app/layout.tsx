@@ -10,23 +10,43 @@ const ralewaySans = Raleway({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Portfolio",
-};
+export async function generateMetadata() {
+  const metaTitle = "Alireza Jalili Portfolio";
+  const metadata: Metadata = {
+    title: metaTitle,
+    description: "Alireza is Frontend developer",
+    authors: [{ name: "Alirza Jalili" }],
+    keywords: ["nextjs", "react", "portfolio", "frontend"],
+    openGraph: {
+      title: metaTitle,
+      description: "Alireza is Frontend developer",
+      url: "alireza-jalili.ir",
+      type: "website",
+    },
+    twitter: {
+      title: metaTitle,
+      description: "Alireza is Frontend developer",
+      site: "alireza-jalili.ir",
+    },
+
+    other: {
+      "app-version": "v0.1.1",
+    },
+  };
+
+  return metadata;
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body className={`${ralewaySans.variable}  antialiased`}>
         <Header />
-        <main className="mt-5 sm:mt-36 ">
-        {children}
-        </main>
+        <main className="mt-5 sm:mt-36 ">{children}</main>
         <GoTop />
         <Footer />
       </body>
