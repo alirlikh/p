@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/alirlikh/p/compare/v0.1.1...v0.1.2) (2026-02-19)
+
+
+### Features
+
+* add env file and use it ([2d661db](https://github.com/alirlikh/p/commit/2d661db587dfb12ac3504531e0fdcb2b85d6de6e))
+* add icon to project card ([879fa43](https://github.com/alirlikh/p/commit/879fa430115cb8daf1a83d4175fa095a3e2c4206))
+* add loader fallback to async component ([74f2f84](https://github.com/alirlikh/p/commit/74f2f847b4bd42409f33c0e18108579c09cef133))
+* add metadata to project ([938d2f4](https://github.com/alirlikh/p/commit/938d2f42d7eb641d5ba9273961f1fc867bc14696))
+* define the theme color and responsive breackpoint ([51cb54e](https://github.com/alirlikh/p/commit/51cb54e3cfc97f85ec15400aa8dccc161618e379))
+
+
+### Bug Fixes
+
+* active menu style ([a7ef0b1](https://github.com/alirlikh/p/commit/a7ef0b1e0659aaba0995d422bbacedda6a4dcb3d))
+* header sytle ([579e893](https://github.com/alirlikh/p/commit/579e893dd0b28551618f57af94232129b1e73d55))
+
 ### 0.1.1 (2026-02-19)
 
 
