@@ -30,7 +30,7 @@ export async function generateMetadata() {
     },
 
     other: {
-      "app-version": "v0.1.1",
+      "app-version": "v0.1.2",
     },
   };
 
