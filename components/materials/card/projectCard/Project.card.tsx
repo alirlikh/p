@@ -2,6 +2,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { IProject } from "@/data";
 import { FC } from "react";
+import { GithubIcon } from "../../icons/Github.icon";
+import { EarthIcon } from "../../icons/Earth.icon";
 
 export interface ProjectCardProps {
   project: IProject;
@@ -54,7 +56,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
                 rel="noopener noreferrer"
                 aria-label="#"
               >
-                {/* <Github /> */}
+                <GithubIcon />
               </a>
             </li>
 
@@ -65,7 +67,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
                 rel="noopener noreferrer"
                 aria-label="#"
               >
-                {/* <Earth /> */}
+                <EarthIcon />
               </a>
             </li>
           </ul>
