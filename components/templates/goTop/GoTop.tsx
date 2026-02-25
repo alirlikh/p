@@ -49,7 +49,7 @@ function GoTop() {
       className="fixed bottom-5 md:bottom-16 md:left-auto right-16 z-50 "
     >
       <motion.button
-        //@ts-ignore
+        //@ts-expect-error to ignore motion typecheck
         whileHover={jumpAnimation}
         onClick={scrollToTop}
         aria-label="Back to top"

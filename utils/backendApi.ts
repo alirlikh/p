@@ -1,4 +1,4 @@
-async function backendApi<T>(path: string, config: RequestInit) {
+async function backendApi(path: string, config: RequestInit) {
   const response = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + path, {
     ...config,
     cache: "no-store",
