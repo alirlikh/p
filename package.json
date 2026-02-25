@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "typegen": "next typegen",
+    "typecheck": "npm run typegen && tsc --noEmit",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

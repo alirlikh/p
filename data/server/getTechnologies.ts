@@ -1,8 +1,7 @@
 import backendApi from "@/utils/backendApi";
-import { ITechnology } from "../static/technology";
 
 const getTechnology = async () => {
-  const response = await backendApi<ITechnology>(`/technology`, {
+  const response = await backendApi(`/technology`, {
     method: "GET",
   });
 

@@ -1,8 +1,7 @@
-import { IEducation } from "../static/education";
 import backendApi from "@/utils/backendApi";
 
 const getEducation = async () => {
-  const response = await backendApi<IEducation>(`/education`, {
+  const response = await backendApi(`/education`, {
     method: "GET",
   });
 

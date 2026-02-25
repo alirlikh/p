@@ -1,8 +1,7 @@
 import backendApi from "@/utils/backendApi";
-import { IExperience } from "../static/experince";
 
 const getExperience = async () => {
-  const response = await backendApi<IExperience>(`/experience`, {
+  const response = await backendApi(`/experience`, {
     method: "GET",
   });
 

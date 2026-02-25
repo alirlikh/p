@@ -1,8 +1,7 @@
 import backendApi from "@/utils/backendApi";
-import { IProject } from "../static/project";
 
 const getProject = async () => {
-  const response = await backendApi<IProject>(`/project`, {
+  const response = await backendApi(`/project`, {
     method: "GET",
   });
 
