@@ -3,7 +3,7 @@ import ExperiencePageBanner from "../experiencePageBanner/ExperiencePageBanner";
 import { lazy, Suspense } from "react";
 
 const ExperineceList = lazy(
-  () => import("@/components/materials/list/experinceList/Experience.list"),
+  () => import("@/components/materials/list/experienceList/Experience.list"),
 );
 
 const ExperiencePageView = () => {

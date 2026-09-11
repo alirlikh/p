@@ -16,25 +16,26 @@ export default function Header() {
   //TODO: usememo and env file
   const menuItem: IMenu[] = [
     { id: 1, title: "Alireza", href: "/", isIcon: false },
-    { id: 2, title: "project", href: "/project", isIcon: false },
-    { id: 3, title: "experience", href: "/experience", isIcon: false },
-    { id: 4, title: "education", href: "/education", isIcon: false },
+    { id: 2, title: "blog", href: "/blog", isIcon: false },
+    { id: 3, title: "project", href: "/project", isIcon: false },
+    { id: 4, title: "experience", href: "/experience", isIcon: false },
+    { id: 5, title: "education", href: "/education", isIcon: false },
     {
-      id: 5,
+      id: 6,
       title: "Linkdin",
       href: "https://linkedin.com/in/alireza-jalili",
       isIcon: true,
       icon: <LinkdinIcon />,
     },
     {
-      id: 6,
+      id: 7,
       title: "Github",
       href: "https://github.com/alirlikh",
       isIcon: true,
       icon: <GithubIcon />,
     },
     {
-      id: 7,
+      id: 8,
       title: "Mail",
       href: "mailto:alirezajalili.pm@gmail.com",
       isIcon: true,

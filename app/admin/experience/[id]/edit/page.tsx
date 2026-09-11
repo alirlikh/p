@@ -1,0 +1,20 @@
+import prisma from '@/lib/prisma';
+import ExperienceEditForm from './ExperienceEditForm';
+import { notFound } from 'next/navigation';
+
+export default async function EditExperiencePage({ params }: { params: { id: string } }) {
+  const { id } = params;
+
+  const experience = await prisma.experience.findUnique({
+    where: { id },
+    include: {
+      duties: true,
+    },
+  });
+
+  if (!experience) {
+    notFound();
+  }
+
+  return <ExperienceEditForm experience={experience} />;
+}

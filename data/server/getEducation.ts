@@ -1,15 +1,20 @@
 import backendApi from "@/utils/backendApi";
 
 const getEducation = async () => {
-  const response = await backendApi(`/education`, {
-    method: "GET",
-  });
+  try {
+    const response = await backendApi(`/education`, {
+      method: "GET",
+    });
 
-  // if (response.status !== 200) {
-  //   throw new Error(response.message.at(0));
-  // }
+    if (!response || !Array.isArray(response)) {
+      throw new Error('Invalid response format from education API');
+    }
 
-  return response!;
+    return response;
+  } catch (error) {
+    console.error('Error fetching education:', error);
+    throw new Error('Failed to fetch education');
+  }
 };
 
 export default getEducation;

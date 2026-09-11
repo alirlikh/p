@@ -1,56 +1,10 @@
-// /** @type {import("@ianvs/prettier-plugin-sort-imports").PrettierConfig} */
-// const config = {
-//   printWidth: 100,
-//   singleQuote: true,
-//   trailingComma: "es5",
-//   plugins: ["@ianvs/prettier-plugin-sort-imports"],
-//   importOrder: [
-//     "^react$",
-//     "^next$",
-//     "^next/.*$",
-//     "",
-//     "dayjs",
-//     "",
-//     "<THIRD_PARTY_MODULES>",
-//     "",
-//     "^@/hooks/(.*)$",
-//     "",
-//     "",
-//     "<BUILTIN_MODULES>",
-//     "^@/components/(.*)$",
-//     "",
-//     "\.(icon)",
-//     "",
-//     "",
-//     "",
-//     "^@docs/(.*)$",
-//     "",
-//     "^@/redux/(.*)$",
-//     "",
-//     "^@/data/(.*)$",
-//     "",
-//     "^@/.*$",
-//     "",
-//     "<TYPES>^(node:)",
-//     "<TYPES>",
-//     "<TYPES>^[.]",
-//     "",
-//     "^../(?!.*.css$).*$",
-//     "",
-//     "^./(?!.*.css$).*$",
-//     "",
-//     ".*styles.css$",
-//     "",
-//     "\\.css$",
-//   ],
-//   overrides: [
-//     {
-//       files: "*.mdx",
-//       options: {
-//         printWidth: 70,
-//       },
-//     },
-//   ],
-// };
+/** @type {import("prettier").Config} */
+const config = {
+  printWidth: 100,
+  singleQuote: true,
+  trailingComma: "es5",
+  tabWidth: 2,
+  semi: true,
+};
 
-// export default config;
+export default config;

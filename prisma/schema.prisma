@@ -1,0 +1,187 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// User model for authentication and blog authorship
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  posts         Post[]
+
+  @@index([email])
+  @@map("users")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+// NextAuth models
+model Account {
+  id                 String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  sessionToken String   @id
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Portfolio Models
+model Project {
+  id        String   @id @default(cuid())
+  name      String
+  image     String
+  githubUrl String
+  demoUrl   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model Experience {
+  id          String           @id @default(cuid())
+  jobTitle    String
+  companyName String
+  type        String
+  startTime   String
+  endTime     String
+  location    String
+  duties      ExperienceDuty[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@map("experiences")
+}
+
+model ExperienceDuty {
+  id           String     @id @default(cuid())
+  experienceId String
+  name         String
+  duties       String[]
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  @@index([experienceId])
+  @@map("experience_duties")
+}
+
+model Education {
+  id            String   @id @default(cuid())
+  degree        String
+  degreeTitle   String
+  college       String
+  startTime     String
+  graduateTime  String
+  certificate   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("educations")
+}
+
+// Blog Post model
+model Post {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String    @db.VarChar(200)
+  excerpt     String?   @db.VarChar(500)
+  content     String    @db.Text
+  coverImage  String?
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  views       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  categories Category[]
+  tags       Tag[]
+
+  @@index([published, publishedAt(sort: Desc)])
+  @@index([slug])
+  @@index([authorId])
+  @@map("posts")
+}
+
+// Category model for organizing posts
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts Post[]
+
+  @@index([slug])
+  @@map("categories")
+}
+
+// Tag model for post tagging
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts Post[]
+
+  @@index([slug])
+  @@map("tags")
+}

@@ -1,0 +1,13 @@
+.next
+.git
+.github
+node_modules
+*.log
+.env
+.env.local
+.DS_Store
+analyze-before-refactor
+tests
+.prettierrc.mjs
+docker-compose.yml
+Dockerfile
