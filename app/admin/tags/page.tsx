@@ -33,6 +33,7 @@ export default function TagsPage() {
 
   // Fetch tags
   const fetchTags = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch('/api/blog/tags');
       const data = await response.json();
@@ -45,19 +46,25 @@ export default function TagsPage() {
   };
 
   useEffect(() => {
-    fetchTags();
+    const timer = setTimeout(() => {
+      fetchTags();
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // Auto-generate slug from name
-  useEffect(() => {
-    if (formData.name && !editingId) {
-      setFormData((prev) => ({ ...prev, slug: slugify(prev.name) }));
-    }
-  }, [formData.name, editingId]);
+  // Removed useEffect as it was causing cascading render issues.
+  // Slug is now generated in handleChange.
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+      if (name === 'name' && !editingId) {
+        updated.slug = slugify(value);
+      }
+      return updated;
+    });
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
@@ -97,7 +104,7 @@ export default function TagsPage() {
       setFormData({ name: '', slug: '' });
       setEditingId(null);
       fetchTags();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsSubmitting(false);
@@ -134,7 +141,7 @@ export default function TagsPage() {
 
       setDeleteId(null);
       fetchTags();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
       setDeleteId(null);
     } finally {

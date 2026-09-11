@@ -1,10 +1,11 @@
 import NextAuth from 'next-auth';
+import { Session } from 'next-auth';
 import { authConfig } from '@/lib/auth.config';
 import { NextResponse, type NextRequest } from 'next/server';
 
 const { auth } = NextAuth(authConfig);
 
-export default auth((req: any) => {
+export default auth((req: NextRequest & { auth: Session | null }) => {
   const isAdmin = req.auth?.user?.isAdmin;
   const isAdminRoute = req.nextUrl.pathname.startsWith('/admin');
   const isAdminAPI = req.nextUrl.pathname.startsWith('/api/admin');
@@ -26,9 +27,5 @@ export default auth((req: any) => {
 });
 
 export const config = {
-  matcher: [
-    '/admin/:path*',
-    '/api/admin/:path*',
-    '/api/blog/:path*',
-  ],
+  matcher: ['/admin/:path*', '/api/admin/:path*', '/api/blog/:path*'],
 };

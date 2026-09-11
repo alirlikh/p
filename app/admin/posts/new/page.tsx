@@ -39,18 +39,21 @@ export default function NewPostPage() {
   }, []);
 
   // Auto-generate slug from title
-  useEffect(() => {
-    if (formData.title && !formData.slug) {
-      setFormData((prev) => ({ ...prev, slug: slugify(prev.title) }));
-    }
-  }, [formData.title, formData.slug]);
+  // Removed useEffect as it was causing cascading render issues.
+  // Slug is now generated in handleChange.
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
-    }));
+    setFormData((prev) => {
+      const updated = {
+        ...prev,
+        [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      };
+      if (name === 'title' && !updated.slug) {
+        updated.slug = slugify(value);
+      }
+      return updated;
+    });
     // Clear error when user types
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
@@ -111,7 +114,7 @@ export default function NewPostPage() {
       // Success - redirect to posts list
       router.push('/admin/posts');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);

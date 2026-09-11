@@ -17,41 +17,41 @@ class Logger {
     return levels[level] >= levels[this.level];
   }
 
-  private format(level: LogLevel, message: string, context?: any) {
+  private format(level: LogLevel, message: string, context?: unknown) {
     return JSON.stringify({
       timestamp: new Date().toISOString(),
       level,
       message,
-      ...context,
+      ...(typeof context === 'object' && context !== null ? context : { context }),
     });
   }
 
-  debug(message: string, context?: any) {
+  debug(message: string, context?: unknown) {
     if (this.shouldLog('debug')) {
       console.debug(this.format('debug', message, context));
     }
   }
 
-  info(message: string, context?: any) {
+  info(message: string, context?: unknown) {
     if (this.shouldLog('info')) {
       console.info(this.format('info', message, context));
     }
   }
 
-  warn(message: string, context?: any) {
+  warn(message: string, context?: unknown) {
     if (this.shouldLog('warn')) {
       console.warn(this.format('warn', message, context));
     }
   }
 
-  error(message: string, error?: any, context?: any) {
+  error(message: string, error?: unknown, context?: unknown) {
     if (this.shouldLog('error')) {
       const errorDetails = error instanceof Error ? {
         message: error.message,
         stack: error.stack,
       } : error;
 
-      console.error(this.format('error', message, { ...context, error: errorDetails }));
+      console.error(this.format('error', message, { ...((context as object) || {}), error: errorDetails }));
     }
   }
 }

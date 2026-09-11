@@ -33,7 +33,7 @@ export async function PATCH(
 
     const { duties, ...experienceData } = validationResult.data;
 
-    const experience = await prisma.experience.update({
+    await prisma.experience.update({
       where: { id },
       data: {
         ...experienceData,
@@ -70,9 +70,9 @@ export async function PATCH(
     });
 
     return NextResponse.json(finalExperience);
-  } catch (error: any) {
+  } catch (error) {
     logger.error('Error updating experience:', error);
-    if (error.code === 'P2025') {
+    if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
       return NextResponse.json(
         { error: 'Experience not found' },
         { status: 404 }
@@ -104,9 +104,9 @@ export async function DELETE(
     });
 
     return NextResponse.json({ message: 'Experience deleted successfully' });
-  } catch (error: any) {
+  } catch (error) {
     logger.error('Error deleting experience:', error);
-    if (error.code === 'P2025') {
+    if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
       return NextResponse.json(
         { error: 'Experience not found' },
         { status: 404 }

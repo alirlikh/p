@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Categories */}
         {post.categories && post.categories.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
-            {post.categories.map((category: any) => (
+            {post.categories.map((category: { id: string; name: string }) => (
               <span
                 key={category.id}
                 className="text-xs px-3 py-1 rounded-full bg-purple-300/20 text-purple-300 border border-purple-300"
@@ -156,7 +156,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="mt-12 pt-8 border-t border-gray-700">
             <h3 className="text-sm font-medium text-gray-400 mb-3">Tags:</h3>
             <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag: any) => (
+              {post.tags.map((tag: { id: string; name: string }) => (
                 <span
                   key={tag.id}
                   className="text-sm px-3 py-1 rounded-full bg-gray-800 text-gray-300 border border-gray-700"

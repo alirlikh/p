@@ -12,7 +12,8 @@ export async function GET() {
     });
     await prisma.$disconnect();
     return NextResponse.json({ message: `Successfully published ${result.count} posts` });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

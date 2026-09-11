@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Input from '@/components/materials/form/Input';
 import Button from '@/components/materials/form/Button';
 import LoadingSpinner from '@/components/materials/feedback/LoadingSpinner';
@@ -32,7 +32,8 @@ export default function CategoriesPage() {
   });
 
   // Fetch categories
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await fetch('/api/blog/categories');
       const data = await response.json();
@@ -42,22 +43,25 @@ export default function CategoriesPage() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  useEffect(() => {
-    fetchCategories();
   }, []);
 
-  // Auto-generate slug from name
   useEffect(() => {
-    if (formData.name && !editingId) {
-      setFormData((prev) => ({ ...prev, slug: slugify(prev.name) }));
-    }
-  }, [formData.name, editingId]);
+    Promise.resolve().then(() => fetchCategories());
+  }, [fetchCategories]);
+
+  // Auto-generate slug from name
+  // Removed useEffect as it was causing cascading render issues.
+  // Slug is now generated in handleChange.
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+      if (name === 'name' && !editingId) {
+        updated.slug = slugify(value);
+      }
+      return updated;
+    });
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
@@ -97,7 +101,7 @@ export default function CategoriesPage() {
       setFormData({ name: '', slug: '' });
       setEditingId(null);
       fetchCategories();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsSubmitting(false);
@@ -134,7 +138,7 @@ export default function CategoriesPage() {
 
       setDeleteId(null);
       fetchCategories();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
       setDeleteId(null);
     } finally {

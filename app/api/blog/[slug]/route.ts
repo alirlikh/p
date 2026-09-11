@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { notFound } from 'next/navigation';
 import prisma from '@/lib/prisma';
 import { auth } from '@/lib/auth';
 import { UpdatePostSchema } from '@/lib/validations/blog';

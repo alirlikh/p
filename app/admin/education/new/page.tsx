@@ -56,7 +56,7 @@ export default function CreateEducationForm() {
 
       router.push('/admin/education');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);

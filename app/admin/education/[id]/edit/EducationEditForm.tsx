@@ -71,7 +71,7 @@ export default function EducationEditForm({ education }: EducationEditFormProps)
 
       router.push('/admin/education');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);
@@ -94,7 +94,7 @@ export default function EducationEditForm({ education }: EducationEditFormProps)
 
       router.push('/admin/education');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
       setShowDeleteConfirm(false);
     } finally {

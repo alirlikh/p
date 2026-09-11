@@ -37,9 +37,9 @@ export async function PATCH(
     });
 
     return NextResponse.json(education);
-  } catch (error: any) {
+  } catch (error) {
     logger.error('Error updating education entry:', error);
-    if (error.code === 'P2025') {
+    if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
       return NextResponse.json(
         { error: 'Education entry not found' },
         { status: 404 }
@@ -71,9 +71,9 @@ export async function DELETE(
     });
 
     return NextResponse.json({ message: 'Education entry deleted successfully' });
-  } catch (error: any) {
+  } catch (error) {
     logger.error('Error deleting education entry:', error);
-    if (error.code === 'P2025') {
+    if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
       return NextResponse.json(
         { error: 'Education entry not found' },
         { status: 404 }

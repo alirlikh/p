@@ -54,7 +54,7 @@ export default function CreateProjectForm() {
 
       router.push('/admin/project');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);

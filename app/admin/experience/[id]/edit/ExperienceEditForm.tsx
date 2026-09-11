@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Input from '@/components/materials/form/Input';
-import Textarea from '@/components/materials/form/Textarea';
 import Button from '@/components/materials/form/Button';
 import ConfirmDialog from '@/components/materials/modal/ConfirmDialog';
 
@@ -128,7 +127,7 @@ export default function ExperienceEditForm({ experience }: ExperienceEditFormPro
 
       router.push('/admin/experience');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);
@@ -151,7 +150,7 @@ export default function ExperienceEditForm({ experience }: ExperienceEditFormPro
 
       router.push('/admin/experience');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
       setShowDeleteConfirm(false);
     } finally {

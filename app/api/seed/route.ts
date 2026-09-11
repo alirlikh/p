@@ -69,8 +69,9 @@ export async function GET() {
 
     await prisma.$disconnect();
     return NextResponse.json({ message: 'Migration completed successfully' });
-  } catch (e: any) {
+  } catch (e) {
     console.error('Migration error:', e);
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

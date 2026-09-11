@@ -24,8 +24,12 @@ export default function DeleteEducationClient({ id, name }: { id: string, name: 
 
       setShowConfirm(false);
       window.location.reload();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Failed to delete education entry');
+      }
     } finally {
       setIsDeleting(false);
     }

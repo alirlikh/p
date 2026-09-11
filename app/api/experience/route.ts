@@ -12,8 +12,8 @@ export async function GET() {
       },
     });
     return NextResponse.json(experiences);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'An unknown error occurred' }, { status: 500 });
   }
 }
 
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(experience, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     logger.error('Error creating experience:', error);
     return NextResponse.json(
       { error: 'Failed to create experience' },

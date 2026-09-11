@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import { auth } from '@/lib/auth';
 import SignInButton from './SignInButton';
 
@@ -64,9 +65,9 @@ export default async function SignInPage({
 
           {/* Back to Home */}
           <div className="mt-6 text-center">
-            <a href="/" className="text-sm text-purple-400 hover:text-purple-300 transition-colors">
+            <Link href="/" className="text-sm text-purple-400 hover:text-purple-300 transition-colors">
               ← Back to Portfolio
-            </a>
+            </Link>
           </div>
         </div>
       </div>

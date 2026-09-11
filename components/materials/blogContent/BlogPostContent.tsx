@@ -49,17 +49,17 @@ const BlogPostContent: FC<BlogPostContentProps> = ({ content }) => {
           ),
 
           // Code blocks
-          code: ({ node, inline, className, children, ...props }: any) => {
-            const match = /language-(\w+)/.exec(className || '');
+          code: ({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode; [key: string]: unknown }) => {
+            const match = /language-(\\w+)/.exec(className || '');
             return !inline && match ? (
               <SyntaxHighlighter
                 style={vscDarkPlus}
                 language={match[1]}
                 PreTag="div"
                 className="rounded-lg my-4"
-                {...props}
+                {...(props as any)}
               >
-                {String(children).replace(/\n$/, '')}
+                {String(children).replace(/\\n$/, '')}
               </SyntaxHighlighter>
             ) : (
               <code

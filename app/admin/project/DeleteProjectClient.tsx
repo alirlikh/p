@@ -25,8 +25,8 @@ export default function DeleteProjectClient({ id, name }: { id: string, name: st
       setShowConfirm(false);
       // Refresh the page to update the list
       window.location.reload();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
       setIsDeleting(false);
     }

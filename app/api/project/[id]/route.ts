@@ -37,9 +37,9 @@ export async function PATCH(
     });
 
     return NextResponse.json(project);
-  } catch (error: any) {
+  } catch (error: unknown) {
     logger.error('Error updating project:', error);
-    if (error.code === 'P2025') {
+    if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
       return NextResponse.json(
         { error: 'Project not found' },
         { status: 404 }
@@ -71,9 +71,9 @@ export async function DELETE(
     });
 
     return NextResponse.json({ message: 'Project deleted successfully' });
-  } catch (error: any) {
+  } catch (error: unknown) {
     logger.error('Error deleting project:', error);
-    if (error.code === 'P2025') {
+    if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
       return NextResponse.json(
         { error: 'Project not found' },
         { status: 404 }

@@ -24,8 +24,8 @@ export default function DeleteExperienceClient({ id, name }: { id: string, name:
 
       setShowConfirm(false);
       window.location.reload();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
       setIsDeleting(false);
     }

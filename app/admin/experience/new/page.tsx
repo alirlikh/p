@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Input from '@/components/materials/form/Input';
-import Textarea from '@/components/materials/form/Textarea';
 import Button from '@/components/materials/form/Button';
 
 interface DutyForm {
@@ -100,7 +99,7 @@ export default function CreateExperienceForm() {
 
       router.push('/admin/experience');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);

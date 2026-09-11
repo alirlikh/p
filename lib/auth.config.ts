@@ -15,17 +15,17 @@ export const authConfig: NextAuthConfig = {
     async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         token.id = user.id;
-        token.email = user.email;
-        (token as any).isAdmin = user.email === process.env.ADMIN_EMAIL;
-        (token as any).role = user.email === process.env.ADMIN_EMAIL ? 'ADMIN' : 'USER';
+        token.email = user.email || '';
+        token.isAdmin = user.email === process.env.ADMIN_EMAIL;
+        token.role = user.email === process.env.ADMIN_EMAIL ? 'ADMIN' : 'USER';
       }
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
       if (token && session.user) {
         session.user.id = token.id as string;
-        (session.user as any).isAdmin = (token as any).isAdmin as boolean;
-        (session.user as any).role = (token as any).role as string;
+        (session.user as any).isAdmin = token.isAdmin;
+        (session.user as any).role = token.role;
       }
       return session;
     },

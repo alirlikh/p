@@ -118,7 +118,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
 
       router.push('/admin/posts');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);
@@ -141,7 +141,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
 
       router.push('/admin/posts');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
       setShowDeleteConfirm(false);
     } finally {

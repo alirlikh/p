@@ -67,7 +67,7 @@ export default function ProjectEditForm({ project }: ProjectEditFormProps) {
 
       router.push('/admin/project');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);
@@ -90,7 +90,7 @@ export default function ProjectEditForm({ project }: ProjectEditFormProps) {
 
       router.push('/admin/project');
       router.refresh();
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'Network error. Please try again.' });
       setShowDeleteConfirm(false);
     } finally {
