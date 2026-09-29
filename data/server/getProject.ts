@@ -1,16 +1,10 @@
-import backendApi from "@/utils/backendApi";
+import prisma from "@/lib/prisma";
 
 const getProject = async () => {
   try {
-    const response = await backendApi(`/project`, {
-      method: "GET",
+    return await prisma.project.findMany({
+      orderBy: { name: "asc" },
     });
-
-    if (!response || !Array.isArray(response)) {
-      throw new Error('Invalid response format from project API');
-    }
-
-    return response;
   } catch (error) {
     console.error('Error fetching projects:', error);
     throw new Error('Failed to fetch projects');

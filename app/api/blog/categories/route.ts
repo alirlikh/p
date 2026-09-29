@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { auth } from '@/lib/auth';
+import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateCategorySchema } from '@/lib/validations/blog';
 
 // GET /api/blog/categories - List all categories
@@ -29,13 +29,8 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     // Check authentication
-    const session = await auth();
-    if (!session?.user?.isAdmin) {
-      return NextResponse.json(
-        { error: 'Unauthorized - Admin access required' },
-        { status: 401 }
-      );
-    }
+    const session = await requireAdmin();
+    if (!session) return adminRequiredResponse();
 
     // Validate request body
     const body = await request.json();

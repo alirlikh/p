@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
 import prisma from '@/lib/prisma';
-import { auth } from '@/lib/auth';
+import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateExperienceSchema } from '@/lib/validations/portfolio';
 
 export async function GET() {
@@ -19,13 +19,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const session = await auth();
-    if (!session?.user?.isAdmin) {
-      return NextResponse.json(
-        { error: 'Unauthorized - Admin access required' },
-        { status: 401 }
-      );
-    }
+    const session = await requireAdmin();
+    if (!session) return adminRequiredResponse();
 
     const body = await request.json();
     const validationResult = CreateExperienceSchema.safeParse(body);
@@ -46,7 +41,7 @@ export async function POST(request: Request) {
       data: {
         ...experienceData,
         duties: {
-          create: duties.map((duty: any) => ({
+          create: duties.map((duty: any) => ({ // eslint-disable-line @typescript-eslint/no-explicit-any
             name: duty.name,
             duties: duty.duties,
           })),

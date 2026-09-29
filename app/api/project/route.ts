@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { auth } from '@/lib/auth';
+import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateProjectSchema } from '@/lib/validations/portfolio';
 
 export async function GET() {
@@ -15,13 +15,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const session = await auth();
-    if (!session?.user?.isAdmin) {
-      return NextResponse.json(
-        { error: 'Unauthorized - Admin access required' },
-        { status: 401 }
-      );
-    }
+    const session = await requireAdmin();
+    if (!session) return adminRequiredResponse();
 
     const body = await request.json();
     const validationResult = CreateProjectSchema.safeParse(body);

@@ -6,7 +6,7 @@ on:
     branches: [main, develop]
 
 jobs:
-  install:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,29 +15,39 @@ jobs:
           node-version: 22
           cache: 'npm'
       - run: npm ci --legacy-peer-deps
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-  lint:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
       - run: npm run lint
 
   typecheck:
-    needs: install
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm ci --legacy-peer-deps
+      - run: npx prisma generate
       - run: npm run typecheck
 
   test:
-    needs: install
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm ci --legacy-peer-deps
       - run: npm run test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm ci --legacy-peer-deps
+      - run: npx prisma generate
+      - run: npm run build

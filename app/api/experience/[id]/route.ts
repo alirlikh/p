@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { auth } from '@/lib/auth';
+import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { UpdateExperienceSchema } from '@/lib/validations/portfolio';
 
 export async function PATCH(
@@ -10,13 +10,8 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const session = await auth();
-    if (!session?.user?.isAdmin) {
-      return NextResponse.json(
-        { error: 'Unauthorized - Admin access required' },
-        { status: 401 }
-      );
-    }
+    const session = await requireAdmin();
+    if (!session) return adminRequiredResponse();
 
     const body = await request.json();
     const validationResult = UpdateExperienceSchema.safeParse(body);
@@ -51,7 +46,7 @@ export async function PATCH(
             name: duty.name,
             experienceId: id,
             duties: {
-              create: duty.duties.map((d: any) => ({ duty: d })),
+              create: duty.duties.map((d: any) => ({ duty: d })), // eslint-disable-line @typescript-eslint/no-explicit-any
             },
           },
         });
@@ -91,13 +86,8 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const session = await auth();
-    if (!session?.user?.isAdmin) {
-      return NextResponse.json(
-        { error: 'Unauthorized - Admin access required' },
-        { status: 401 }
-      );
-    }
+    const session = await requireAdmin();
+    if (!session) return adminRequiredResponse();
 
     await prisma.experience.delete({
       where: { id },

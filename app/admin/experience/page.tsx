@@ -39,7 +39,7 @@ async function ExperienceList() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-700">
-                {experiences.map((exp: any) => (
+                {experiences.map((exp: any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
                   <tr key={exp.id} className="hover:bg-gray-700/30 transition-colors">
                     <td className="px-6 py-4">
                       <div className="font-medium">{exp.jobTitle}</div>

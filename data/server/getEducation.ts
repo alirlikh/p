@@ -1,16 +1,10 @@
-import backendApi from "@/utils/backendApi";
+import prisma from "@/lib/prisma";
 
 const getEducation = async () => {
   try {
-    const response = await backendApi(`/education`, {
-      method: "GET",
+    return await prisma.education.findMany({
+      orderBy: { startTime: "desc" },
     });
-
-    if (!response || !Array.isArray(response)) {
-      throw new Error('Invalid response format from education API');
-    }
-
-    return response;
   } catch (error) {
     console.error('Error fetching education:', error);
     throw new Error('Failed to fetch education');

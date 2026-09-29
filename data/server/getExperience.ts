@@ -1,16 +1,11 @@
-import backendApi from "@/utils/backendApi";
+import prisma from "@/lib/prisma";
 
 const getExperience = async () => {
   try {
-    const response = await backendApi(`/experience`, {
-      method: "GET",
+    return await prisma.experience.findMany({
+      include: { duties: true },
+      orderBy: { startTime: "desc" },
     });
-
-    if (!response || !Array.isArray(response)) {
-      throw new Error('Invalid response format from experience API');
-    }
-
-    return response;
   } catch (error) {
     console.error('Error fetching experience:', error);
     throw new Error('Failed to fetch experience');

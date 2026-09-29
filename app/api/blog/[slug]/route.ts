@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { auth } from '@/lib/auth';
+import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { UpdatePostSchema } from '@/lib/validations/blog';
 
 // GET /api/blog/[slug] - Get single post
@@ -80,13 +81,8 @@ export async function PATCH(
   try {
     const { slug } = await params;
     // Check authentication
-    const session = await auth();
-    if (!session?.user?.isAdmin) {
-      return NextResponse.json(
-        { error: 'Unauthorized - Admin access required' },
-        { status: 401 }
-      );
-    }
+    const session = await requireAdmin();
+    if (!session) return adminRequiredResponse();
 
     // Validate request body
     const body = await request.json();
@@ -173,13 +169,8 @@ export async function DELETE(
   try {
     const { slug } = await params;
     // Check authentication
-    const session = await auth();
-    if (!session?.user?.isAdmin) {
-      return NextResponse.json(
-        { error: 'Unauthorized - Admin access required' },
-        { status: 401 }
-      );
-    }
+    const session = await requireAdmin();
+    if (!session) return adminRequiredResponse();
 
     // Check if post exists
     const existingPost = await prisma.post.findUnique({

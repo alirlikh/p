@@ -35,7 +35,7 @@ async function ProjectList() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-700">
-                {projects.map((project: any) => (
+                {projects.map((project: any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
                   <tr key={project.id} className="hover:bg-gray-700/30 transition-colors">
                     <td className="px-6 py-4 font-medium">{project.name}</td>
                     <td className="px-6 py-4 text-sm text-gray-400 truncate max-w-xs">{project.image}</td>

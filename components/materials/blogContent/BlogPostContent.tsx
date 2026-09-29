@@ -57,14 +57,14 @@ const BlogPostContent: FC<BlogPostContentProps> = ({ content }) => {
                 language={match[1]}
                 PreTag="div"
                 className="rounded-lg my-4"
-                {...(props as any)}
+                {...(props as any)} // eslint-disable-line @typescript-eslint/no-explicit-any
               >
                 {String(children).replace(/\\n$/, '')}
               </SyntaxHighlighter>
             ) : (
               <code
                 className="bg-gray-800 text-purple-300 px-2 py-1 rounded text-sm font-mono"
-                {...props}
+                {...(props as any)} // eslint-disable-line @typescript-eslint/no-explicit-any
               >
                 {children}
               </code>

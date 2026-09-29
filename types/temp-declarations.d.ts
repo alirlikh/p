@@ -1,6 +1,7 @@
 // Temporary type declarations until packages are installed
 // This file will be ignored once you run: npm install
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module '@prisma/client' {
   export class PrismaClient {
     post: any;

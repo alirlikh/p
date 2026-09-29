@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { auth } from '@/lib/auth';
+import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreatePostSchema } from '@/lib/validations/blog';
 
 // GET /api/blog - List all published posts (public)
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     const category = searchParams.get('category');
     const tag = searchParams.get('tag');
 
-    const where: any = { published: true };
+    const where: any = { published: true }; // eslint-disable-line @typescript-eslint/no-explicit-any
     if (query) {
       where.OR = [
         { title: { contains: query, mode: 'insensitive' } },
@@ -83,13 +83,8 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     // Check authentication
-    const session = await auth();
-    if (!session?.user?.isAdmin) {
-      return NextResponse.json(
-        { error: 'Unauthorized - Admin access required' },
-        { status: 401 }
-      );
-    }
+    const session = await requireAdmin();
+    if (!session) return adminRequiredResponse();
 
     // Parse and validate request body
     const body = await request.json();

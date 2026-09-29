@@ -24,8 +24,8 @@ export const authConfig: NextAuthConfig = {
     async session({ session, token }: { session: Session; token: JWT }) {
       if (token && session.user) {
         session.user.id = token.id as string;
-        (session.user as any).isAdmin = token.isAdmin;
-        (session.user as any).role = token.role;
+        (session.user as any).isAdmin = token.isAdmin; // eslint-disable-line @typescript-eslint/no-explicit-any
+        (session.user as any).role = token.role; // eslint-disable-line @typescript-eslint/no-explicit-any
       }
       return session;
     },

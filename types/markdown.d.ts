@@ -8,7 +8,7 @@ declare module 'react-markdown' {
 }
 
 declare module 'react-syntax-highlighter' {
-  export const Prism: any;
+  export const Prism: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism' {
