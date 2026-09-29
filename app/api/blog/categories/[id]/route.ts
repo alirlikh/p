@@ -4,10 +4,7 @@ import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateCategorySchema } from '@/lib/validations/blog';
 
 // GET /api/blog/categories/[id] - Get single category
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
 
@@ -21,27 +18,18 @@ export async function GET(
     });
 
     if (!category) {
-      return NextResponse.json(
-        { error: 'Category not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Category not found' }, { status: 404 });
     }
 
     return NextResponse.json(category);
   } catch (error) {
     console.error('Error fetching category:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch category' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch category' }, { status: 500 });
   }
 }
 
 // PATCH /api/blog/categories/[id] - Update category (admin only)
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
 
@@ -69,10 +57,7 @@ export async function PATCH(
     });
 
     if (!existingCategory) {
-      return NextResponse.json(
-        { error: 'Category not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Category not found' }, { status: 404 });
     }
 
     // Check if slug is being changed and if new slug already exists
@@ -114,18 +99,12 @@ export async function PATCH(
       }
     }
 
-    return NextResponse.json(
-      { error: 'Failed to update category' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update category' }, { status: 500 });
   }
 }
 
 // DELETE /api/blog/categories/[id] - Delete category (admin only)
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
 
@@ -144,10 +123,7 @@ export async function DELETE(
     });
 
     if (!existingCategory) {
-      return NextResponse.json(
-        { error: 'Category not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Category not found' }, { status: 404 });
     }
 
     // Check if category has posts
@@ -166,15 +142,9 @@ export async function DELETE(
       where: { id },
     });
 
-    return NextResponse.json(
-      { message: 'Category deleted successfully' },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: 'Category deleted successfully' }, { status: 200 });
   } catch (error) {
     console.error('Error deleting category:', error);
-    return NextResponse.json(
-      { error: 'Failed to delete category' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to delete category' }, { status: 500 });
   }
 }

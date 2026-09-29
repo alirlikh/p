@@ -4,10 +4,7 @@ import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { UpdateExperienceSchema } from '@/lib/validations/portfolio';
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const session = await requireAdmin();
@@ -68,22 +65,13 @@ export async function PATCH(
   } catch (error) {
     logger.error('Error updating experience:', error);
     if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
-      return NextResponse.json(
-        { error: 'Experience not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Experience not found' }, { status: 404 });
     }
-    return NextResponse.json(
-      { error: 'Failed to update experience' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update experience' }, { status: 500 });
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const session = await requireAdmin();
@@ -97,14 +85,8 @@ export async function DELETE(
   } catch (error) {
     logger.error('Error deleting experience:', error);
     if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
-      return NextResponse.json(
-        { error: 'Experience not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Experience not found' }, { status: 404 });
     }
-    return NextResponse.json(
-      { error: 'Failed to delete experience' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to delete experience' }, { status: 500 });
   }
 }

@@ -9,7 +9,10 @@ export async function GET() {
     const projects = await prisma.project.findMany();
     return NextResponse.json(projects);
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : 'An unknown error occurred' }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { status: 500 }
+    );
   }
 }
 
@@ -38,9 +41,6 @@ export async function POST(request: Request) {
     return NextResponse.json(project, { status: 201 });
   } catch (error) {
     logger.error('Error creating project:', error);
-    return NextResponse.json(
-      { error: 'Failed to create project' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to create project' }, { status: 500 });
   }
 }

@@ -1,4 +1,4 @@
-import { technology } from "@/data";
+import { technology } from '@/data';
 
 const getTechnology = async () => {
   return technology;

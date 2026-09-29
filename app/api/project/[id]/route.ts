@@ -4,10 +4,7 @@ import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { UpdateProjectSchema } from '@/lib/validations/portfolio';
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const session = await requireAdmin();
@@ -35,22 +32,13 @@ export async function PATCH(
   } catch (error: unknown) {
     logger.error('Error updating project:', error);
     if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
-      return NextResponse.json(
-        { error: 'Project not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
-    return NextResponse.json(
-      { error: 'Failed to update project' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update project' }, { status: 500 });
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const session = await requireAdmin();
@@ -64,14 +52,8 @@ export async function DELETE(
   } catch (error: unknown) {
     logger.error('Error deleting project:', error);
     if (error instanceof Error && (error as unknown as { code: string }).code === 'P2025') {
-      return NextResponse.json(
-        { error: 'Project not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
-    return NextResponse.json(
-      { error: 'Failed to delete project' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to delete project' }, { status: 500 });
   }
 }

@@ -18,10 +18,7 @@ export async function GET() {
     return NextResponse.json(tags);
   } catch (error) {
     console.error('Error fetching tags:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch tags' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch tags' }, { status: 500 });
   }
 }
 
@@ -52,10 +49,7 @@ export async function POST(request: Request) {
     });
 
     if (existingTag) {
-      return NextResponse.json(
-        { error: 'A tag with this slug already exists' },
-        { status: 409 }
-      );
+      return NextResponse.json({ error: 'A tag with this slug already exists' }, { status: 409 });
     }
 
     // Create tag
@@ -75,16 +69,10 @@ export async function POST(request: Request) {
     // Handle unique constraint violation
     if (error && typeof error === 'object' && 'code' in error) {
       if ((error as { code: string }).code === 'P2002') {
-        return NextResponse.json(
-          { error: 'A tag with this slug already exists' },
-          { status: 409 }
-        );
+        return NextResponse.json({ error: 'A tag with this slug already exists' }, { status: 409 });
       }
     }
 
-    return NextResponse.json(
-      { error: 'Failed to create tag' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to create tag' }, { status: 500 });
   }
 }

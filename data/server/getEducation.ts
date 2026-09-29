@@ -1,9 +1,9 @@
-import prisma from "@/lib/prisma";
+import prisma from '@/lib/prisma';
 
 const getEducation = async () => {
   try {
     return await prisma.education.findMany({
-      orderBy: { startTime: "desc" },
+      orderBy: { startTime: 'desc' },
     });
   } catch (error) {
     console.error('Error fetching education:', error);

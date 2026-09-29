@@ -5,10 +5,7 @@ import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { UpdatePostSchema } from '@/lib/validations/blog';
 
 // GET /api/blog/[slug] - Get single post
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ slug: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
   try {
     const { slug } = await params;
     const session = await auth();
@@ -41,18 +38,12 @@ export async function GET(
     });
 
     if (!post) {
-      return NextResponse.json(
-        { error: 'Post not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
     // Only show unpublished posts to admins
     if (!post.published && !isAdmin) {
-      return NextResponse.json(
-        { error: 'Post not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
     // Increment view count (only for published posts)
@@ -66,18 +57,12 @@ export async function GET(
     return NextResponse.json(post);
   } catch (error) {
     console.error('Error fetching post:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch post' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch post' }, { status: 500 });
   }
 }
 
 // PATCH /api/blog/[slug] - Update post (admin only)
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ slug: string }> }
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ slug: string }> }) {
   try {
     const { slug } = await params;
     // Check authentication
@@ -106,10 +91,7 @@ export async function PATCH(
     });
 
     if (!existingPost) {
-      return NextResponse.json(
-        { error: 'Post not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
     // Update post
@@ -154,18 +136,12 @@ export async function PATCH(
       }
     }
 
-    return NextResponse.json(
-      { error: 'Failed to update post' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update post' }, { status: 500 });
   }
 }
 
 // DELETE /api/blog/[slug] - Delete post (admin only)
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ slug: string }> }
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ slug: string }> }) {
   try {
     const { slug } = await params;
     // Check authentication
@@ -178,10 +154,7 @@ export async function DELETE(
     });
 
     if (!existingPost) {
-      return NextResponse.json(
-        { error: 'Post not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
     // Delete post (categories and tags will be automatically disconnected)
@@ -189,15 +162,9 @@ export async function DELETE(
       where: { slug },
     });
 
-    return NextResponse.json(
-      { message: 'Post deleted successfully' },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: 'Post deleted successfully' }, { status: 200 });
   } catch (error) {
     console.error('Error deleting post:', error);
-    return NextResponse.json(
-      { error: 'Failed to delete post' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to delete post' }, { status: 500 });
   }
 }

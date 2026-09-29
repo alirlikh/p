@@ -4,10 +4,7 @@ import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateTagSchema } from '@/lib/validations/blog';
 
 // GET /api/blog/tags/[id] - Get single tag
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
 
@@ -21,27 +18,18 @@ export async function GET(
     });
 
     if (!tag) {
-      return NextResponse.json(
-        { error: 'Tag not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Tag not found' }, { status: 404 });
     }
 
     return NextResponse.json(tag);
   } catch (error) {
     console.error('Error fetching tag:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch tag' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch tag' }, { status: 500 });
   }
 }
 
 // PATCH /api/blog/tags/[id] - Update tag (admin only)
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
 
@@ -69,10 +57,7 @@ export async function PATCH(
     });
 
     if (!existingTag) {
-      return NextResponse.json(
-        { error: 'Tag not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Tag not found' }, { status: 404 });
     }
 
     // Check if slug is being changed and if new slug already exists
@@ -82,10 +67,7 @@ export async function PATCH(
       });
 
       if (slugExists) {
-        return NextResponse.json(
-          { error: 'A tag with this slug already exists' },
-          { status: 409 }
-        );
+        return NextResponse.json({ error: 'A tag with this slug already exists' }, { status: 409 });
       }
     }
 
@@ -107,25 +89,16 @@ export async function PATCH(
     // Handle unique constraint violation
     if (error && typeof error === 'object' && 'code' in error) {
       if ((error as { code: string }).code === 'P2002') {
-        return NextResponse.json(
-          { error: 'A tag with this slug already exists' },
-          { status: 409 }
-        );
+        return NextResponse.json({ error: 'A tag with this slug already exists' }, { status: 409 });
       }
     }
 
-    return NextResponse.json(
-      { error: 'Failed to update tag' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update tag' }, { status: 500 });
   }
 }
 
 // DELETE /api/blog/tags/[id] - Delete tag (admin only)
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
 
@@ -144,10 +117,7 @@ export async function DELETE(
     });
 
     if (!existingTag) {
-      return NextResponse.json(
-        { error: 'Tag not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Tag not found' }, { status: 404 });
     }
 
     // Check if tag has posts
@@ -166,15 +136,9 @@ export async function DELETE(
       where: { id },
     });
 
-    return NextResponse.json(
-      { message: 'Tag deleted successfully' },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: 'Tag deleted successfully' }, { status: 200 });
   } catch (error) {
     console.error('Error deleting tag:', error);
-    return NextResponse.json(
-      { error: 'Failed to delete tag' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to delete tag' }, { status: 500 });
   }
 }

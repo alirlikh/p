@@ -13,7 +13,10 @@ export async function GET() {
     });
     return NextResponse.json(experiences);
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : 'An unknown error occurred' }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { status: 500 }
+    );
   }
 }
 
@@ -41,7 +44,8 @@ export async function POST(request: Request) {
       data: {
         ...experienceData,
         duties: {
-          create: duties.map((duty: any) => ({ // eslint-disable-line @typescript-eslint/no-explicit-any
+          create: duties.map((duty: any) => ({
+            // eslint-disable-line @typescript-eslint/no-explicit-any
             name: duty.name,
             duties: duty.duties,
           })),
@@ -55,9 +59,6 @@ export async function POST(request: Request) {
     return NextResponse.json(experience, { status: 201 });
   } catch (error) {
     logger.error('Error creating experience:', error);
-    return NextResponse.json(
-      { error: 'Failed to create experience' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to create experience' }, { status: 500 });
   }
 }

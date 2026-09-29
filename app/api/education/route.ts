@@ -9,7 +9,10 @@ export async function GET() {
     const educations = await prisma.education.findMany();
     return NextResponse.json(educations);
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : 'An unknown error occurred' }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { status: 500 }
+    );
   }
 }
 
@@ -38,9 +41,6 @@ export async function POST(request: Request) {
     return NextResponse.json(education, { status: 201 });
   } catch (error) {
     logger.error('Error creating education entry:', error);
-    return NextResponse.json(
-      { error: 'Failed to create education entry' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to create education entry' }, { status: 500 });
   }
 }
