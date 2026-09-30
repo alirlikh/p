@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import BlogPostContent from '@/components/materials/blogContent/BlogPostContent';
 import ShareButton from '@/components/materials/blogContent/ShareButton';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 // Enable ISR
 export const revalidate = 3600;
@@ -37,19 +38,28 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   if (!post) {
     return {
       title: 'Post Not Found',
+      robots: { index: false, follow: false },
     };
   }
 
+  const postUrl = new URL(`/blog/${slug}`, SITE_URL).toString();
+  const imageUrl = post.coverImage
+    ? new URL(post.coverImage, SITE_URL).toString()
+    : undefined;
+
   return {
-    title: `${post.title} - Alireza Jalili`,
+    title: post.title,
     description: post.excerpt || post.title,
+    alternates: { canonical: postUrl },
     openGraph: {
       title: post.title,
       description: post.excerpt || post.title,
+      url: postUrl,
       type: 'article',
       publishedTime: post.publishedAt,
-      authors: [post.author.name],
-      images: post.coverImage ? [post.coverImage] : [],
+      modifiedTime: post.updatedAt,
+      authors: post.author?.name ? [post.author.name] : undefined,
+      images: imageUrl ? [{ url: imageUrl, alt: post.title }] : undefined,
     },
   };
 }
@@ -71,9 +81,35 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   };
 
   const readingTime = Math.ceil(post.content.split(' ').length / 200);
+  const postUrl = new URL(`/blog/${post.slug}`, SITE_URL).toString();
+  const articleStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt || post.title,
+    url: postUrl,
+    mainEntityOfPage: postUrl,
+    inLanguage: 'en',
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
+    ...(post.coverImage && {
+      image: new URL(post.coverImage, SITE_URL).toString(),
+    }),
+    author: {
+      '@type': 'Person',
+      name: post.author?.name || SITE_NAME,
+    },
+    publisher: { '@id': `${SITE_URL}/#person` },
+    ...(post.categories?.length && {
+      articleSection: post.categories.map((category: { name: string }) => category.name),
+    }),
+    ...(post.tags?.length && {
+      keywords: post.tags.map((tag: { name: string }) => tag.name),
+    }),
+  };
 
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       {/* Back Button */}
       <div className="p-4 px-8 md:px-28 pt-8">
         <Link
@@ -85,6 +121,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </div>
 
       <article className="max-w-4xl mx-auto p-4 px-8 md:px-12 py-8">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(articleStructuredData).replace(/</g, '\\u003c'),
+          }}
+        />
         {/* Cover Image */}
         {post.coverImage && (
           <div className="relative w-full h-96 rounded-[40px] overflow-hidden mb-8 border-2 border-gray-700">
@@ -183,6 +225,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           />
         </div>
       </article>
-    </main>
+    </div>
   );
 }

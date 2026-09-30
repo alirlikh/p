@@ -1,23 +1,14 @@
 import { Suspense } from 'react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import BlogListSection from '@/components/templates/blogListSection/BlogListSection';
 import Loader from '@/components/materials/loader/Loader';
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import BlogFilterBar from '@/components/materials/form/BlogFilterBar';
+import { SITE_URL } from '@/lib/site';
 
 // Enable ISR (Incremental Static Regeneration)
 export const revalidate = 3600; // Revalidate every hour
-
-export const metadata: Metadata = {
-  title: 'Blog - Alireza Jalili',
-  description: 'Read about web development, React, Next.js, and more',
-  openGraph: {
-    title: 'Blog - Alireza Jalili',
-    description: 'Read about web development, React, Next.js, and more',
-    type: 'website',
-  },
-};
 
 async function getPosts(page: number = 1, query?: string, category?: string, tag?: string) {
   try {
@@ -74,6 +65,29 @@ interface BlogPageProps {
   }>;
 }
 
+export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const requestedPage = Number(params.page);
+  const page = Number.isInteger(requestedPage) && requestedPage > 1 ? requestedPage : 1;
+  const canonical = page === 1 ? '/blog' : `/blog?page=${page}`;
+  const hasFilters = Boolean(params.q || params.category || params.tag);
+  const title = 'Blog';
+  const description = 'Read about web development, programming, React, and Next.js.';
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    robots: hasFilters ? { index: false, follow: true } : undefined,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: new URL(canonical, SITE_URL).toString(),
+    },
+  };
+}
+
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const params = await searchParams;
   const currentPage = parseInt(params.page || '1', 10);
@@ -98,7 +112,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   };
 
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       {/* Hero Section */}
       <section className="p-4 px-8 md:px-28 py-12 md:py-20 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">Blog</h1>
@@ -157,6 +171,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           </p>
         </section>
       )}
-    </main>
+    </div>
   );
 }

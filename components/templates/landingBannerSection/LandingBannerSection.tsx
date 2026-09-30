@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import DownloadButton from "@/components/materials/button/downloadButton/Download.button";
-import Link from "next/link";
-import Image from "next/image";
-import avatar from "../../../public/images/avatar.jpg";
+import { motion } from 'framer-motion';
+import DownloadButton from '@/components/materials/button/downloadButton/Download.button';
+import Link from 'next/link';
+import Image from 'next/image';
+import avatar from '../../../public/images/avatar.jpg';
 
 const LandingBannerSection = () => {
   return (
@@ -19,24 +19,19 @@ const LandingBannerSection = () => {
         }}
       >
         <div className="flex flex-col items-center m-2 mb-6 lg:items-start">
-          <h2 className="text-4xl font-normal md:text-7xl my-4 mx-3 p-2 md:mt-[80px]">
+          <h1 className="text-4xl font-normal md:text-7xl my-4 mx-3 p-2 md:mt-[80px]">
             Hi, I’m Alireza
-          </h2>
+          </h1>
           <p className="text-gray-400 p-2 mx-3 text-center md:text-start max-w-[500px]">
-            who a{" "}
-            <span className="font-bold text-lg text-white">
-              {" "}
-              frontend developer{" "}
-            </span>
-            with a passion for creating dynamic and user-friendly websites. With
-            a focus on clean, efficient code , I strive to build engaging
-            digital experiences
+            who a <span className="font-bold text-lg text-white"> frontend developer </span>
+            with a passion for creating dynamic and user-friendly websites. With a focus on clean,
+            efficient code , I strive to build engaging digital experiences
           </p>
         </div>
         <div className="flex flex-col items-center m-2 mt-8 *:my-4 *:mx-2 md:flex-row text-nowrap">
           <DownloadButton />
           <span className="text-purple-300">
-            <Link href={"/experience"} className="py-3 px-12c m-2">
+            <Link href={'/experience'} className="py-3 px-12c m-2">
               See experiences
             </Link>
           </span>
