@@ -75,7 +75,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
               🔖 Tags
             </Link>
             <div className="pt-4 mt-4 border-t border-gray-700">
-              <span className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Portfolio</span>
+              <span className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Portfolio
+              </span>
               <Link
                 href="/admin/project"
                 className="block px-4 py-3 rounded-lg hover:bg-gray-800 transition-all"

@@ -43,9 +43,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   const postUrl = new URL(`/blog/${slug}`, SITE_URL).toString();
-  const imageUrl = post.coverImage
-    ? new URL(post.coverImage, SITE_URL).toString()
-    : undefined;
+  const imageUrl = post.coverImage ? new URL(post.coverImage, SITE_URL).toString() : undefined;
 
   return {
     title: post.title,
@@ -219,10 +217,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             ← All Posts
           </Link>
 
-          <ShareButton
-            title={post.title}
-            excerpt={post.excerpt || post.title}
-          />
+          <ShareButton title={post.title} excerpt={post.excerpt || post.title} />
         </div>
       </article>
     </div>

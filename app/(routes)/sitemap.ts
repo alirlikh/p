@@ -12,7 +12,7 @@ const getPublishedPosts = unstable_cache(
       orderBy: { publishedAt: 'desc' },
     }),
   ['published-sitemap-posts'],
-  { revalidate: 3600 },
+  { revalidate: 3600 }
 );
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
