@@ -32,7 +32,7 @@ export default async function PostsPage() {
             message="Create your first blog post to get started!"
             action={{
               label: 'Create First Post',
-              onClick: () => {}, // This won't work in server component, but component handles it
+              href: '/admin/posts/new',
             }}
           />
         </div>

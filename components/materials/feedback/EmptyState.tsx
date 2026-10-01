@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import Link from 'next/link';
 
 interface EmptyStateProps {
   emoji?: string;
@@ -6,7 +7,7 @@ interface EmptyStateProps {
   message?: string;
   action?: {
     label: string;
-    onClick: () => void;
+    href: string;
   };
 }
 
@@ -17,12 +18,12 @@ const EmptyState: FC<EmptyStateProps> = ({ emoji = '📝', title, message, actio
       <h3 className="text-2xl font-bold mb-2">{title}</h3>
       {message && <p className="text-gray-400 mb-6 max-w-md">{message}</p>}
       {action && (
-        <button
-          onClick={action.onClick}
+        <Link
+          href={action.href}
           className="px-6 py-3 rounded-lg bg-purple-300 text-white hover:brightness-90 transition-all"
         >
           {action.label}
-        </button>
+        </Link>
       )}
     </div>
   );
