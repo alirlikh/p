@@ -6,6 +6,7 @@ import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import BlogFilterBar from '@/components/materials/form/BlogFilterBar';
 import { SITE_URL } from '@/lib/site';
+import { logger } from '@/lib/logger';
 
 // Enable ISR (Incremental Static Regeneration)
 export const revalidate = 3600; // Revalidate every hour
@@ -51,7 +52,7 @@ async function getPosts(page: number = 1, query?: string, category?: string, tag
       },
     };
   } catch (error) {
-    console.error('Error fetching posts from database:', error);
+    logger.error('Error fetching posts from database', error);
     return { posts: [], pagination: { page: 1, limit: 9, totalCount: 0, totalPages: 0 } };
   }
 }

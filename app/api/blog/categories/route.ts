@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateCategorySchema } from '@/lib/validations/blog';
+import { logger } from '@/lib/logger';
 
 // GET /api/blog/categories - List all categories
 export async function GET() {
@@ -17,7 +18,7 @@ export async function GET() {
 
     return NextResponse.json(categories);
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    logger.error('Error fetching categories', error);
     return NextResponse.json({ error: 'Failed to fetch categories' }, { status: 500 });
   }
 }
@@ -50,7 +51,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(category, { status: 201 });
   } catch (error: unknown) {
-    console.error('Error creating category:', error);
+    logger.error('Error creating category', error);
 
     // Handle unique constraint violation
     if (error && typeof error === 'object' && 'code' in error) {

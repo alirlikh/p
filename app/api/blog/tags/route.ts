@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateTagSchema } from '@/lib/validations/blog';
+import { logger } from '@/lib/logger';
 
 // GET /api/blog/tags - List all tags
 export async function GET() {
@@ -17,7 +18,7 @@ export async function GET() {
 
     return NextResponse.json(tags);
   } catch (error) {
-    console.error('Error fetching tags:', error);
+    logger.error('Error fetching tags', error);
     return NextResponse.json({ error: 'Failed to fetch tags' }, { status: 500 });
   }
 }
@@ -64,7 +65,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(tag, { status: 201 });
   } catch (error: unknown) {
-    console.error('Error creating tag:', error);
+    logger.error('Error creating tag', error);
 
     // Handle unique constraint violation
     if (error && typeof error === 'object' && 'code' in error) {

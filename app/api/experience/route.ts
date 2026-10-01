@@ -40,12 +40,16 @@ export async function POST(request: Request) {
 
     const { duties, ...experienceData } = validationResult.data;
 
+    interface DutyInput {
+      name: string;
+      duties: string[];
+    }
+
     const experience = await prisma.experience.create({
       data: {
         ...experienceData,
         duties: {
-          create: duties.map((duty: any) => ({
-            // eslint-disable-line @typescript-eslint/no-explicit-any
+          create: duties.map((duty: DutyInput) => ({
             name: duty.name,
             duties: duty.duties,
           })),

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import BlogPostContent from '@/components/materials/blogContent/BlogPostContent';
 import ShareButton from '@/components/materials/blogContent/ShareButton';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
+import { logger } from '@/lib/logger';
 
 // Enable ISR
 export const revalidate = 3600;
@@ -26,7 +27,7 @@ async function getPost(slug: string) {
 
     return await response.json();
   } catch (error) {
-    console.error('Error fetching post:', error);
+    logger.error('Error fetching post', error);
     return null;
   }
 }

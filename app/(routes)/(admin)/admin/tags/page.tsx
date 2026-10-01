@@ -7,6 +7,7 @@ import LoadingSpinner from '@/components/materials/feedback/LoadingSpinner';
 import EmptyState from '@/components/materials/feedback/EmptyState';
 import ConfirmDialog from '@/components/materials/modal/ConfirmDialog';
 import { slugify } from '@/lib/utils/slugify';
+import { logger } from '@/lib/logger';
 
 interface Tag {
   id: string;
@@ -39,7 +40,7 @@ export default function TagsPage() {
       const data = await response.json();
       setTags(data);
     } catch (error) {
-      console.error('Failed to fetch tags:', error);
+      logger.error('Failed to fetch tags', error);
     } finally {
       setIsLoading(false);
     }

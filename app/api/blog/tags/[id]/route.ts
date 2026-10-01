@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateTagSchema } from '@/lib/validations/blog';
+import { logger } from '@/lib/logger';
 
 // GET /api/blog/tags/[id] - Get single tag
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -23,7 +24,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
     return NextResponse.json(tag);
   } catch (error) {
-    console.error('Error fetching tag:', error);
+    logger.error('Error fetching tag', error);
     return NextResponse.json({ error: 'Failed to fetch tag' }, { status: 500 });
   }
 }
@@ -84,7 +85,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
     return NextResponse.json(updatedTag);
   } catch (error: unknown) {
-    console.error('Error updating tag:', error);
+    logger.error('Error updating tag', error);
 
     // Handle unique constraint violation
     if (error && typeof error === 'object' && 'code' in error) {
@@ -138,7 +139,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
     return NextResponse.json({ message: 'Tag deleted successfully' }, { status: 200 });
   } catch (error) {
-    console.error('Error deleting tag:', error);
+    logger.error('Error deleting tag', error);
     return NextResponse.json({ error: 'Failed to delete tag' }, { status: 500 });
   }
 }

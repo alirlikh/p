@@ -2,6 +2,7 @@
 
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+import { logger } from '@/lib/logger';
 
 export default function SignInButton({ callbackUrl }: { callbackUrl?: string }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +14,7 @@ export default function SignInButton({ callbackUrl }: { callbackUrl?: string }) 
         callbackUrl: callbackUrl || '/admin',
       });
     } catch (error) {
-      console.error('Sign in error:', error);
+      logger.error('Sign in error', error);
       setIsLoading(false);
     }
   };

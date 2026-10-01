@@ -7,6 +7,7 @@ import LoadingSpinner from '@/components/materials/feedback/LoadingSpinner';
 import EmptyState from '@/components/materials/feedback/EmptyState';
 import ConfirmDialog from '@/components/materials/modal/ConfirmDialog';
 import { slugify } from '@/lib/utils/slugify';
+import { logger } from '@/lib/logger';
 
 interface Category {
   id: string;
@@ -39,7 +40,7 @@ export default function CategoriesPage() {
       const data = await response.json();
       setCategories(data);
     } catch (error) {
-      console.error('Failed to fetch categories:', error);
+      logger.error('Failed to fetch categories', error);
     } finally {
       setIsLoading(false);
     }

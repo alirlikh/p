@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateCategorySchema } from '@/lib/validations/blog';
+import { logger } from '@/lib/logger';
 
 // GET /api/blog/categories/[id] - Get single category
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -23,7 +24,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
     return NextResponse.json(category);
   } catch (error) {
-    console.error('Error fetching category:', error);
+    logger.error('Error fetching category', error);
     return NextResponse.json({ error: 'Failed to fetch category' }, { status: 500 });
   }
 }
@@ -87,7 +88,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
     return NextResponse.json(updatedCategory);
   } catch (error: unknown) {
-    console.error('Error updating category:', error);
+    logger.error('Error updating category', error);
 
     // Handle unique constraint violation
     if (error && typeof error === 'object' && 'code' in error) {
@@ -144,7 +145,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
     return NextResponse.json({ message: 'Category deleted successfully' }, { status: 200 });
   } catch (error) {
-    console.error('Error deleting category:', error);
+    logger.error('Error deleting category', error);
     return NextResponse.json({ error: 'Failed to delete category' }, { status: 500 });
   }
 }

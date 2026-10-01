@@ -6,6 +6,7 @@ import Input from '@/components/materials/form/Input';
 import Textarea from '@/components/materials/form/Textarea';
 import Button from '@/components/materials/form/Button';
 import { slugify } from '@/lib/utils/slugify';
+import { logger } from '@/lib/logger';
 
 export default function NewPostPage() {
   const router = useRouter();
@@ -35,7 +36,9 @@ export default function NewPostPage() {
         setCategories(categoriesData);
         setTags(tagsData);
       })
-      .catch(console.error);
+      .catch((error) => {
+        logger.error('Failed to fetch categories or tags', error);
+      });
   }, []);
 
   // Auto-generate slug from title

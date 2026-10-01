@@ -6,6 +6,7 @@ import Input from '@/components/materials/form/Input';
 import Textarea from '@/components/materials/form/Textarea';
 import Button from '@/components/materials/form/Button';
 import ConfirmDialog from '@/components/materials/modal/ConfirmDialog';
+import { logger } from '@/lib/logger';
 
 interface EditPostFormProps {
   post: {
@@ -52,7 +53,9 @@ export default function EditPostForm({ post }: EditPostFormProps) {
         setCategories(categoriesData);
         setTags(tagsData);
       })
-      .catch(console.error);
+      .catch((error) => {
+        logger.error('Failed to fetch categories or tags', error);
+      });
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

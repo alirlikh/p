@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreatePostSchema } from '@/lib/validations/blog';
+import { logger } from '@/lib/logger';
 
 // GET /api/blog - List all published posts (public)
 export async function GET(request: Request) {
@@ -15,7 +16,17 @@ export async function GET(request: Request) {
     const category = searchParams.get('category');
     const tag = searchParams.get('tag');
 
-    const where: any = { published: true }; // eslint-disable-line @typescript-eslint/no-explicit-any
+    interface WhereClause {
+      published: boolean;
+      OR?: Array<{
+        title?: { contains: string; mode: 'insensitive' };
+        excerpt?: { contains: string; mode: 'insensitive' };
+      }>;
+      categories?: { some: { slug: string } };
+      tags?: { some: { slug: string } };
+    }
+
+    const where: WhereClause = { published: true };
     if (query) {
       where.OR = [
         { title: { contains: query, mode: 'insensitive' } },
@@ -71,7 +82,7 @@ export async function GET(request: Request) {
       },
     });
   } catch (error) {
-    console.error('Error fetching posts:', error);
+    logger.error('Error fetching posts', error);
     return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
   }
 }
@@ -129,7 +140,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(post, { status: 201 });
   } catch (error: unknown) {
-    console.error('Error creating post:', error);
+    logger.error('Error creating post', error);
 
     // Handle unique constraint violation (duplicate slug)
     if (error && typeof error === 'object' && 'code' in error) {

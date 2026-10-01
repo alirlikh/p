@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma';
 import { auth } from '@/lib/auth';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { UpdatePostSchema } from '@/lib/validations/blog';
+import { logger } from '@/lib/logger';
 
 // GET /api/blog/[slug] - Get single post
 export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
@@ -56,7 +57,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
 
     return NextResponse.json(post);
   } catch (error) {
-    console.error('Error fetching post:', error);
+    logger.error('Error fetching post', error);
     return NextResponse.json({ error: 'Failed to fetch post' }, { status: 500 });
   }
 }
@@ -124,7 +125,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ sl
 
     return NextResponse.json(updatedPost);
   } catch (error: unknown) {
-    console.error('Error updating post:', error);
+    logger.error('Error updating post', error);
 
     // Handle unique constraint violation
     if (error && typeof error === 'object' && 'code' in error) {
@@ -164,7 +165,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ s
 
     return NextResponse.json({ message: 'Post deleted successfully' }, { status: 200 });
   } catch (error) {
-    console.error('Error deleting post:', error);
+    logger.error('Error deleting post', error);
     return NextResponse.json({ error: 'Failed to delete post' }, { status: 500 });
   }
 }
