@@ -7,7 +7,7 @@
   package = "@netlify/plugin-nextjs"
 
 # Cache Prisma binaries between builds
-[[build.environment]]
+[build.environment]
   NODE_VERSION = "22"
 
 # Optimize static assets
