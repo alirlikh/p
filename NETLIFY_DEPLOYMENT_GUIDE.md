@@ -145,11 +145,12 @@ Copy the output and use it as your `AUTH_SECRET` value.
    netlify deploy --prod
    ```
 
-## Step 5: Run Database Migrations
+## Step 5: Set Up the Database Schema
 
-After your first deployment, you need to set up your database schema.
+The project currently has no Prisma migration files. Sync the schema defined in
+`prisma/schema.prisma` to the production database before building:
 
-### Option A: Run Migrations Locally Against Production DB
+### Option A: Sync Locally Against the Production Database
 
 1. **Temporarily set your local environment to production**:
    ```bash
@@ -157,9 +158,9 @@ After your first deployment, you need to set up your database schema.
    export DIRECT_URL="your-production-direct-url"
    ```
 
-2. **Run migrations**:
+2. **Sync the schema**:
    ```bash
-   npx prisma migrate deploy
+   npx prisma db push
    ```
 
 3. **Generate Prisma Client**:
@@ -173,14 +174,14 @@ Create `netlify.toml` in your project root:
 
 ```toml
 [build]
-  command = "npx prisma generate && npx prisma migrate deploy && npm run build"
+  command = "npx prisma db push && npm run build"
   publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 ```
 
-This will run migrations automatically on every deploy.
+This syncs the Prisma schema before Next.js builds pages that query the database.
 
 ## Step 6: Configure Custom Domain (Optional)
 

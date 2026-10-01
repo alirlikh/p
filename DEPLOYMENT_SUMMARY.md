@@ -20,9 +20,9 @@ Your Next.js 16.2.3 portfolio project is now fully prepared for production deplo
 - **Pre-commit Hooks**: Husky configured to enforce quality gates
 
 #### 3. ✅ Deployment Configuration
-- **Created `netlify.toml`**: Automatically runs Prisma migrations before build
+- **Updated `netlify.toml`**: Syncs the Prisma schema before build
 - **Fixed Build Failure**: Database tables now created before Next.js static generation
-- **Migration Strategy**: Documented and automated via `netlify.toml`
+- **Database Schema Strategy**: Documented and automated via `netlify.toml`
 - **Docker Config**: Verified and ready for alternative deployment
 
 #### 4. ✅ Documentation Created
@@ -41,11 +41,14 @@ Your build was failing with:
 Error: P2021 - The table `public.projects` does not exist
 ```
 
-**Fixed by `netlify.toml`** which now runs migrations BEFORE the build:
+**Fixed by `netlify.toml`** which syncs the Prisma schema BEFORE the build:
 ```toml
 [build]
-  command = "npx prisma generate && npx prisma migrate deploy && npm run build"
+  command = "npx prisma db push && npm run build"
 ```
+
+This project does not currently include Prisma migration files, so it uses
+`prisma db push` rather than `prisma migrate deploy`.
 
 ### Quick Deployment Steps
 

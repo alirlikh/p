@@ -1,6 +1,6 @@
 [build]
-  # Run Prisma migrations BEFORE building Next.js
-  command = "npx prisma generate && npx prisma migrate deploy && npm run build"
+  # Sync the Prisma schema before Next.js queries the database during the build.
+  command = "npx prisma db push && npm run build"
   publish = ".next"
 
 [[plugins]]

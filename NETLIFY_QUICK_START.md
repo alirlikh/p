@@ -155,11 +155,15 @@ Your portfolio is now deployed!
 ### What `netlify.toml` Does
 
 The configuration file I created:
-1. ✅ Runs `prisma generate` to create the Prisma client
-2. ✅ Runs `prisma migrate deploy` to create database tables
-3. ✅ Then runs `npm run build` to build Next.js
-4. ✅ Configures caching for static assets
-5. ✅ Uses Node.js 22 (same as your Dockerfile)
+1. ✅ Runs `prisma db push` to sync the database schema before the Next.js build
+2. ✅ Runs `npm run build` to generate Prisma Client and build Next.js
+3. ✅ Configures caching for static assets
+4. ✅ Uses Node.js 22 (same as your Dockerfile)
+
+This project does not currently contain Prisma migration files, so the Netlify
+build uses `db push` rather than `migrate deploy`. Make sure the `DATABASE_URL`
+configured for the Netlify deploy points to the same database used by the
+deployed app.
 
 ## 🔧 Troubleshooting
 
@@ -176,10 +180,10 @@ The configuration file I created:
 export DATABASE_URL="your-production-database-url"
 export DIRECT_URL="your-production-direct-url"
 
-# Run migrations
-npx prisma migrate deploy
+# Sync the schema from prisma/schema.prisma
+npx prisma db push
 
-# You should see: "All migrations have been successfully applied"
+# Confirm the command reports that the database is in sync
 ```
 
 ### "Invalid redirect_uri" error during GitHub login
