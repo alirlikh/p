@@ -17,7 +17,13 @@ const TechnologiesSliderCard: FC<TechnologiesSliderCardProps> = ({ slide }) => {
         {slide.items?.map((item, index: number) => (
           <li className="flex flex-row justify-start items-center " key={index}>
             <span className="bg-gray-700 rounded-full p-3 mr-5">
-              <Image src={item.url} width={20} height={20} alt={item.name} />
+              <Image
+                src={item.url}
+                width={20}
+                height={20}
+                alt={item.name}
+                sizes="20px"
+              />
             </span>
             {item.name}
           </li>

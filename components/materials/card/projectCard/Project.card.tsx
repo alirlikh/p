@@ -38,7 +38,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
           src={image}
           alt={`${name} project image`}
           fill
-          sizes="auto"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
           className="object-cover rounded-[40px] border-2   border-dashed p-2 border-purple-300 "
         />
       </div>

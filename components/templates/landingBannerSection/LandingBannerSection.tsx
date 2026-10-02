@@ -47,6 +47,7 @@ const LandingBannerSection = () => {
           src={avatar}
           priority
           alt="profile image"
+          sizes="(max-width: 768px) 144px, (max-width: 1024px) 224px, 320px"
           className="mx-auto aspect-auto max-w-36 md:max-w-56 lg:max-w-80 scale-125 picture-raduis "
         />
         <motion.div

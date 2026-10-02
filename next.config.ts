@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     root: path.join(__dirname, ""), // We set the root to the directory where next.config.ts is located (__dirname) to remove the duplicate json.lock file error
   },
   experimental: {
-    optimizePackageImports: ["framer-motion", "swiper"],
+    optimizePackageImports: ["framer-motion", "swiper", "zod", "lucide-react"],
   },
   images: {
     remotePatterns: [

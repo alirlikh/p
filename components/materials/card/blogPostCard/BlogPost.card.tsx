@@ -113,6 +113,7 @@ const BlogPostCard: FC<BlogPostCardProps> = ({ post }) => {
                 alt={author.name || 'Author'}
                 width={24}
                 height={24}
+                sizes="24px"
                 className="rounded-full"
               />
             )}
