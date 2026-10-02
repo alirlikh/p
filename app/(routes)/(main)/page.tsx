@@ -1,9 +1,20 @@
 import type { Metadata } from 'next';
-import ExperienceSliderSection from '@/components/templates/experienceSliderSection/ExperienceSliderSection';
+import dynamic from 'next/dynamic';
 import LandingBannerSection from '@/components/templates/landingBannerSection/LandingBannerSection';
 import RoutinBanner from '@/components/templates/routinBanner/RoutinBanner';
-import TechnologiesSection from '@/components/templates/technologiesSection/TechnologiesSection';
+import Loader from '@/components/materials/feedback/LoadingSpinner';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
+
+// Lazy load below-the-fold sections with heavy dependencies
+const ExperienceSliderSection = dynamic(
+  () => import('@/components/templates/experienceSliderSection/ExperienceSliderSection'),
+  { loading: () => <Loader /> }
+);
+
+const TechnologiesSection = dynamic(
+  () => import('@/components/templates/technologiesSection/TechnologiesSection'),
+  { loading: () => <Loader /> }
+);
 
 export const metadata: Metadata = {
   title: 'Alireza Jalili | Frontend Developer | React & Next.js Expert',

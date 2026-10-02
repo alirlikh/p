@@ -1,12 +1,18 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import BlogListSection from '@/components/templates/blogListSection/BlogListSection';
-import Loader from '@/components/materials/loader/Loader';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import BlogFilterBar from '@/components/materials/form/BlogFilterBar';
+import Loader from '@/components/materials/loader/Loader';
 import { SITE_URL } from '@/lib/site';
 import { logger } from '@/lib/logger';
+
+// Lazy load BlogListSection (uses framer-motion heavily)
+const BlogListSection = dynamic(
+  () => import('@/components/templates/blogListSection/BlogListSection'),
+  { loading: () => <Loader /> }
+);
 
 // Enable ISR (Incremental Static Regeneration)
 export const revalidate = 3600; // Revalidate every hour

@@ -1,11 +1,17 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import BlogPostContent from '@/components/materials/blogContent/BlogPostContent';
 import ShareButton from '@/components/materials/blogContent/ShareButton';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
 import { logger } from '@/lib/logger';
+
+// Lazy load BlogPostContent (uses react-syntax-highlighter ~8.7MB)
+const BlogPostContent = dynamic(
+  () => import('@/components/materials/blogContent/BlogPostContent'),
+  { loading: () => <div className="animate-pulse bg-gray-800 h-96 rounded-lg" /> }
+);
 
 // Enable ISR
 export const revalidate = 3600;
