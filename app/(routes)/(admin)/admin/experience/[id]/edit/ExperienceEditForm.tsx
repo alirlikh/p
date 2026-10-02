@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Input from '@/components/materials/form/Input';
 import Button from '@/components/materials/form/Button';
 import ConfirmDialog from '@/components/materials/modal/ConfirmDialog';
@@ -121,14 +122,17 @@ export default function ExperienceEditForm({ experience }: ExperienceEditFormPro
           setErrors(fieldErrors);
         } else {
           setErrors({ submit: data.error || 'Failed to update experience' });
+          toast.error(data.error || 'Failed to update experience');
         }
         return;
       }
 
+      toast.success('Experience updated successfully!');
       router.push('/admin/experience');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -144,14 +148,17 @@ export default function ExperienceEditForm({ experience }: ExperienceEditFormPro
       if (!response.ok) {
         const data = await response.json();
         setErrors({ submit: data.error || 'Failed to delete experience' });
+        toast.error(data.error || 'Failed to delete experience');
         setShowDeleteConfirm(false);
         return;
       }
 
+      toast.success('Experience deleted successfully!');
       router.push('/admin/experience');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
       setShowDeleteConfirm(false);
     } finally {
       setIsDeleting(false);

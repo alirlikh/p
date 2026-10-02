@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Input from '@/components/materials/form/Input';
 import Button from '@/components/materials/form/Button';
 import FileUploader from '@/components/materials/uploader/FileUploader';
@@ -51,14 +52,17 @@ export default function CreateEducationForm() {
           setErrors(fieldErrors);
         } else {
           setErrors({ submit: data.error || 'Failed to create education entry' });
+          toast.error(data.error || 'Failed to create education entry');
         }
         return;
       }
 
+      toast.success('Education entry created successfully!');
       router.push('/admin/education');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
     } finally {
       setIsLoading(false);
     }

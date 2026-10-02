@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Input from '@/components/materials/form/Input';
 import Button from '@/components/materials/form/Button';
 
@@ -93,14 +94,17 @@ export default function CreateExperienceForm() {
           setErrors(fieldErrors);
         } else {
           setErrors({ submit: data.error || 'Failed to create experience' });
+          toast.error(data.error || 'Failed to create experience');
         }
         return;
       }
 
+      toast.success('Experience created successfully!');
       router.push('/admin/experience');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
     } finally {
       setIsLoading(false);
     }

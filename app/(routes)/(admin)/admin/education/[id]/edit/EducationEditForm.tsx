@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Input from '@/components/materials/form/Input';
 import Button from '@/components/materials/form/Button';
 import FileUploader from '@/components/materials/uploader/FileUploader';
@@ -66,14 +67,17 @@ export default function EducationEditForm({ education }: EducationEditFormProps)
           setErrors(fieldErrors);
         } else {
           setErrors({ submit: data.error || 'Failed to update education entry' });
+          toast.error(data.error || 'Failed to update education entry');
         }
         return;
       }
 
+      toast.success('Education entry updated successfully!');
       router.push('/admin/education');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -89,14 +93,17 @@ export default function EducationEditForm({ education }: EducationEditFormProps)
       if (!response.ok) {
         const data = await response.json();
         setErrors({ submit: data.error || 'Failed to delete education entry' });
+        toast.error(data.error || 'Failed to delete education entry');
         setShowDeleteConfirm(false);
         return;
       }
 
+      toast.success('Education entry deleted successfully!');
       router.push('/admin/education');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
       setShowDeleteConfirm(false);
     } finally {
       setIsDeleting(false);

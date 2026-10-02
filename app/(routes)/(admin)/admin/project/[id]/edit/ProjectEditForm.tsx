@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Input from '@/components/materials/form/Input';
 import Button from '@/components/materials/form/Button';
 import ConfirmDialog from '@/components/materials/modal/ConfirmDialog';
@@ -61,14 +62,17 @@ export default function ProjectEditForm({ project }: ProjectEditFormProps) {
           setErrors(fieldErrors);
         } else {
           setErrors({ submit: data.error || 'Failed to update project' });
+          toast.error(data.error || 'Failed to update project');
         }
         return;
       }
 
+      toast.success('Project updated successfully!');
       router.push('/admin/project');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -84,14 +88,17 @@ export default function ProjectEditForm({ project }: ProjectEditFormProps) {
       if (!response.ok) {
         const data = await response.json();
         setErrors({ submit: data.error || 'Failed to delete project' });
+        toast.error(data.error || 'Failed to delete project');
         setShowDeleteConfirm(false);
         return;
       }
 
+      toast.success('Project deleted successfully!');
       router.push('/admin/project');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
       setShowDeleteConfirm(false);
     } finally {
       setIsDeleting(false);

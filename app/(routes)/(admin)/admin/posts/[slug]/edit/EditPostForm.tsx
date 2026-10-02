@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Input from '@/components/materials/form/Input';
 import Textarea from '@/components/materials/form/Textarea';
 import Button from '@/components/materials/form/Button';
@@ -115,14 +116,17 @@ export default function EditPostForm({ post }: EditPostFormProps) {
           setErrors(fieldErrors);
         } else {
           setErrors({ submit: data.error || 'Failed to update post' });
+          toast.error(data.error || 'Failed to update post');
         }
         return;
       }
 
+      toast.success('Post updated successfully!');
       router.push('/admin/posts');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -138,14 +142,17 @@ export default function EditPostForm({ post }: EditPostFormProps) {
       if (!response.ok) {
         const data = await response.json();
         setErrors({ submit: data.error || 'Failed to delete post' });
+        toast.error(data.error || 'Failed to delete post');
         setShowDeleteConfirm(false);
         return;
       }
 
+      toast.success('Post deleted successfully!');
       router.push('/admin/posts');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
       setShowDeleteConfirm(false);
     } finally {
       setIsDeleting(false);
