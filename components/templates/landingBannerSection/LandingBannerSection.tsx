@@ -50,7 +50,7 @@ const LandingBannerSection = () => {
           className="mx-auto aspect-auto max-w-36 md:max-w-56 lg:max-w-80 scale-125 picture-raduis "
         />
         <motion.div
-          className="text-3xl cursor-pointer -left-2.75 -bottom-1 z-10 absolute w-40 md:w-70 md:text-6xl md:-left-7.5 md:-bottom-3  "
+          className="text-3xl cursor-pointer -left-2.75 -bottom-1 z-1 absolute w-40 md:w-70 md:text-6xl md:-left-7.5 md:-bottom-3  "
           // animate={isWaving ? { rotate: [0, 14, -8, 14, -4, 10, 0] } : { rotate: 0 }}
           animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
           transition={{
