@@ -3,14 +3,12 @@ import { SITE_URL } from '@/lib/site';
 import ExperiencePageView from '@/components/templates/experiencePageView/ExperiencePage.view';
 
 export const metadata: Metadata = {
-  title: 'Experience',
-  description:
-    'Explore the frontend development roles and professional experience of Alireza Jalili.',
+  title: 'Professional Frontend Experience | Alireza Jalili',
+  description: 'Explore Alireza Jalili\'s professional experience as a frontend developer, specializing in React, Next.js, and modern UI/UX design.',
   alternates: { canonical: '/experience' },
   openGraph: {
-    title: 'Experience',
-    description:
-      'Explore the frontend development roles and professional experience of Alireza Jalili.',
+    title: 'Professional Frontend Experience | Alireza Jalili',
+    description: 'Explore Alireza Jalili\'s professional experience as a frontend developer, specializing in React, Next.js, and modern UI/UX design.',
     url: `${SITE_URL}/experience`,
   },
 };

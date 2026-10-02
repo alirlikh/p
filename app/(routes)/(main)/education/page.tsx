@@ -3,12 +3,12 @@ import { SITE_URL } from '@/lib/site';
 import EducationPageView from '@/components/templates/educationPageView/EducationPage.view';
 
 export const metadata: Metadata = {
-  title: 'Education',
-  description: "View Alireza Jalili's education, academic background, and certificates.",
+  title: 'Academic Background & Certifications | Alireza Jalili',
+  description: 'Discover Alireza Jalili\'s academic journey, professional certifications, and technical education in frontend development.',
   alternates: { canonical: '/education' },
   openGraph: {
-    title: 'Education',
-    description: "View Alireza Jalili's education, academic background, and certificates.",
+    title: 'Academic Background & Certifications | Alireza Jalili',
+    description: 'Discover Alireza Jalili\'s academic journey, professional certifications, and technical education in frontend development.',
     url: `${SITE_URL}/education`,
   },
 };

@@ -3,15 +3,15 @@ import ExperienceSliderSection from '@/components/templates/experienceSliderSect
 import LandingBannerSection from '@/components/templates/landingBannerSection/LandingBannerSection';
 import RoutinBanner from '@/components/templates/routinBanner/RoutinBanner';
 import TechnologiesSection from '@/components/templates/technologiesSection/TechnologiesSection';
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Frontend Developer Portfolio',
-  description: SITE_DESCRIPTION,
+  title: 'Alireza Jalili | Frontend Developer | React & Next.js Expert',
+  description: 'Build performant, user-centric web applications with modern frontend technologies.',
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Frontend Developer Portfolio',
-    description: SITE_DESCRIPTION,
+    title: 'Alireza Jalili | Frontend Developer | React & Next.js Expert',
+    description: 'Build performant, user-centric web applications with modern frontend technologies.',
     url: SITE_URL,
   },
 };
