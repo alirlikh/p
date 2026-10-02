@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 import ProjectCardSkeleton from '@/components/materials/skeleton/ProjectCardSkeleton';
-import { lazy, Suspense } from 'react';
+import ProjectPageView from '@/components/templates/projectPageView/ProjectPage.view';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Web Development Projects | React & Next.js Portfolio | Alireza Jalili',
@@ -13,10 +14,6 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/project`,
   },
 };
-
-const ProjectPageView = lazy(
-  () => import('@/components/templates/projectPageView/ProjectPage.view')
-);
 
 const page = () => {
   return (

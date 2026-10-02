@@ -1,10 +1,8 @@
 import ExperienceCardSkeleton from "@/components/materials/skeleton/ExperienceCardSkeleton";
 import ExperiencePageBanner from "../experiencePageBanner/ExperiencePageBanner";
-import { lazy, Suspense } from "react";
+import ExperineceList from "@/components/materials/list/experienceList/Experience.list";
+import { Suspense } from "react";
 
-const ExperineceList = lazy(
-  () => import("@/components/materials/list/experienceList/Experience.list"),
-);
 
 const ExperiencePageView = () => {
   return (

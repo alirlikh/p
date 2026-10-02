@@ -1,9 +1,7 @@
 import EducationCardSkeleton from "@/components/materials/skeleton/EducationCardSkeleton";
-import { lazy, Suspense } from "react";
+import EducationList from "@/components/materials/list/educationList/Education.list";
+import { Suspense } from "react";
 
-const EducationList = lazy(
-  () => import("@/components/materials/list/educationList/Education.list"),
-);
 
 const EducationPageView = () => {
   return (
