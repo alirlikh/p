@@ -15,7 +15,7 @@ const Input: FC<InputProps> = ({ label, error, className = '', ...props }) => {
         </label>
       )}
       <input
-        className={`w-full rounded-lg bg-gray-850 border border-gray-700 px-4 py-3 text-white placeholder-gray-500 focus:border-purple-300 focus:outline-none transition-colors ${
+        className={`w-full rounded-lg bg-gray-850 border border-gray-700 px-4 py-3 text-white placeholder-gray-400 focus:border-purple-300 focus:outline-none transition-colors ${
           error ? 'border-red-500' : ''
         } ${className}`}
         {...props}

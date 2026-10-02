@@ -22,7 +22,7 @@ const LandingBannerSection = () => {
           <h1 className="text-4xl font-normal md:text-7xl my-4 mx-3 p-2 md:mt-[80px]">
             Hi, I’m Alireza
           </h1>
-          <p className="text-gray-400 p-2 mx-3 text-center md:text-start max-w-[500px]">
+          <p className="text-gray-300 p-2 mx-3 text-center md:text-start max-w-[500px]">
             who a <span className="font-bold text-lg text-white"> frontend developer </span>
             with a passion for creating dynamic and user-friendly websites. With a focus on clean,
             efficient code , I strive to build engaging digital experiences
@@ -46,7 +46,7 @@ const LandingBannerSection = () => {
         <Image
           src={avatar}
           priority
-          alt="profile image"
+          alt="Alireza Jalili - Frontend Developer"
           sizes="(max-width: 768px) 144px, (max-width: 1024px) 224px, 320px"
           className="mx-auto aspect-auto max-w-36 md:max-w-56 lg:max-w-80 scale-125 picture-raduis "
         />

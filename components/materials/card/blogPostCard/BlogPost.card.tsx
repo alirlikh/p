@@ -61,7 +61,7 @@ const BlogPostCard: FC<BlogPostCardProps> = ({ post }) => {
           {coverImage ? (
             <Image
               src={coverImage}
-              alt={`${title} cover image`}
+              alt={title}
               fill
               sizes="(max-width: 768px) 100vw, 384px"
               className="object-cover rounded-[40px] border-2 border-dashed p-2 border-purple-300"
@@ -82,7 +82,7 @@ const BlogPostCard: FC<BlogPostCardProps> = ({ post }) => {
             {categories.map((category) => (
               <span
                 key={category.id}
-                className="text-xs px-3 py-1 rounded-full bg-purple-300/20 text-purple-300 border border-purple-300"
+                className="text-xs px-3 py-1 rounded-full bg-purple-300/30 text-purple-300 border border-purple-300"
               >
                 {category.name}
               </span>
@@ -99,13 +99,13 @@ const BlogPostCard: FC<BlogPostCardProps> = ({ post }) => {
 
         {/* Excerpt */}
         {excerpt && (
-          <p className="text-gray-400 text-center text-sm line-clamp-3">
+          <p className="text-gray-300 text-center text-sm line-clamp-3">
             {excerpt}
           </p>
         )}
 
         {/* Meta Info */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-700 text-sm text-gray-400">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-700 text-sm text-gray-300">
           <div className="flex items-center gap-2">
             {author.image && (
               <Image

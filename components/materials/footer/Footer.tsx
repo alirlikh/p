@@ -36,17 +36,17 @@ const Footer = () => {
   return (
     <div className="flex flex-col items-start m-4 px-4 md:px-12 mt-16 ">
       <div className="w-full py-2 bg-gray-850 px-4 rounded-full flex flex-row justify-between items-center max-w-screen-2xl mx-auto">
-        <p className="text-gray-400 text-sm m-2">Follow me</p>
+        <p className="text-gray-300 text-sm m-2">Follow me</p>
         <div className="flex flex-row items-center w-24 justify-around">
           {iconList?.map((item) => (
-            <NavLink key={item.id} href={item.href} passHref>
+            <NavLink key={item.id} href={item.href} passHref aria-label={item.name}>
               {item.icon}
             </NavLink>
           ))}
         </div>
       </div>
       <div className="m-3">
-        <span className="text-sm text-gray-400 p-2">Made with 👨‍💻🤦‍♂️❤️️</span>
+        <span className="text-sm text-gray-300 p-2">Made with 👨‍💻🤦‍♂️❤️️</span>
       </div>
     </div>
   );
