@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Input from '@/components/materials/form/Input';
 import Textarea from '@/components/materials/form/Textarea';
 import Button from '@/components/materials/form/Button';
@@ -111,15 +112,18 @@ export default function NewPostPage() {
           setErrors(fieldErrors);
         } else {
           setErrors({ submit: data.error || 'Failed to create post' });
+          toast.error(data.error || 'Failed to create post');
         }
         return;
       }
 
+      toast.success('Post created successfully!');
       // Success - redirect to posts list
       router.push('/admin/posts');
       router.refresh();
     } catch {
       setErrors({ submit: 'Network error. Please try again.' });
+      toast.error('Network error. Please try again.');
     } finally {
       setIsLoading(false);
     }

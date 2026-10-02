@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
+import { Toaster } from '@/components/materials/feedback/Toast';
 import './globals.css';
 
 const ralewaySans = Raleway({
@@ -54,7 +55,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${ralewaySans.variable}  antialiased`}>{children}</body>
+      <body className={`${ralewaySans.variable}  antialiased`}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
