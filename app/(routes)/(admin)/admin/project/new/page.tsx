@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Input from '@/components/materials/form/Input';
 import Button from '@/components/materials/form/Button';
+import FileUploader from '@/components/materials/uploader/FileUploader';
 
 export default function CreateProjectForm() {
   const router = useRouter();
@@ -87,16 +88,23 @@ export default function CreateProjectForm() {
           error={errors.name}
         />
 
-        <Input
-          label="Image URL"
-          name="image"
-          value={formData.image}
-          onChange={handleChange}
-          placeholder="https://example.com/image.png"
-          type="url"
-          required
-          error={errors.image}
-        />
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-400">Project Image</label>
+          <FileUploader
+            folder="projects"
+            onUploadSuccess={(url) => setFormData((prev) => ({ ...prev, image: url }))}
+          />
+          <Input
+            label="Image URL"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+            placeholder="https://example.com/image.png"
+            type="url"
+            required
+            error={errors.image}
+          />
+        </div>
 
         <Input
           label="GitHub URL"

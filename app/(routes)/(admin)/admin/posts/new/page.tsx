@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Input from '@/components/materials/form/Input';
 import Textarea from '@/components/materials/form/Textarea';
 import Button from '@/components/materials/form/Button';
+import FileUploader from '@/components/materials/uploader/FileUploader';
 import { slugify } from '@/lib/utils/slugify';
 import { logger } from '@/lib/logger';
 
@@ -192,15 +193,22 @@ export default function NewPostPage() {
         />
 
         {/* Cover Image */}
-        <Input
-          label="Cover Image URL"
-          name="coverImage"
-          value={formData.coverImage}
-          onChange={handleChange}
-          placeholder="https://example.com/image.jpg (optional)"
-          type="url"
-          error={errors.coverImage}
-        />
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-400">Cover Image</label>
+          <FileUploader
+            folder="posts"
+            onUploadSuccess={(url) => setFormData((prev) => ({ ...prev, coverImage: url }))}
+          />
+          <Input
+            label="Cover Image URL"
+            name="coverImage"
+            value={formData.coverImage}
+            onChange={handleChange}
+            placeholder="https://example.com/image.jpg (optional)"
+            type="url"
+            error={errors.coverImage}
+          />
+        </div>
 
         {/* Categories */}
         {categories.length > 0 && (

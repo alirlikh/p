@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Input from '@/components/materials/form/Input';
 import Button from '@/components/materials/form/Button';
+import FileUploader from '@/components/materials/uploader/FileUploader';
 
 export default function CreateEducationForm() {
   const router = useRouter();
@@ -130,15 +131,22 @@ export default function CreateEducationForm() {
           />
         </div>
 
-        <Input
-          label="Certificate URL"
-          name="certificate"
-          value={formData.certificate}
-          onChange={handleChange}
-          placeholder="https://example.com/cert.pdf"
-          type="url"
-          error={errors.certificate}
-        />
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-400">Certificate</label>
+          <FileUploader
+            folder="certificates"
+            onUploadSuccess={(url) => setFormData((prev) => ({ ...prev, certificate: url }))}
+          />
+          <Input
+            label="Certificate URL"
+            name="certificate"
+            value={formData.certificate}
+            onChange={handleChange}
+            placeholder="https://example.com/cert.pdf"
+            type="url"
+            error={errors.certificate}
+          />
+        </div>
 
         <div className="flex gap-4 pt-4">
           <Button type="submit" variant="primary" size="large" isLoading={isLoading} className="flex-1">
