@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "../../icons/ArrowRight.icon";
+import { ArrowRightIcon } from '../../icons/ArrowRight.icon';
 
 const DownloadButton = () => {
   return (
@@ -6,7 +6,7 @@ const DownloadButton = () => {
       <div className=" flex row justify-center items-center absolute right-6 top-0   hover:right-2  group transition-all duration-300 delay-75">
         <ArrowRightIcon
           className={
-            "opacity-5 group-hover:opacity-100 transition-opacity duration-200 delay-75"
+            'opacity-2 group-hover:opacity-100 transition-opacity duration-200 delay-75 w-7'
           }
         />
         <a
