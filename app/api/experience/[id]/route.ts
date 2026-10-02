@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { UpdateExperienceSchema } from '@/lib/validations/portfolio';
+import { revalidatePath } from 'next/cache';
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -61,6 +62,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       },
     });
 
+    revalidatePath('/experience');
+    revalidatePath('/api/experience');
+
     return NextResponse.json(finalExperience);
   } catch (error) {
     logger.error('Error updating experience:', error);
@@ -80,6 +84,9 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     await prisma.experience.delete({
       where: { id },
     });
+
+    revalidatePath('/experience');
+    revalidatePath('/api/experience');
 
     return NextResponse.json({ message: 'Experience deleted successfully' });
   } catch (error) {

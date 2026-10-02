@@ -3,6 +3,7 @@ import { logger } from '@/lib/logger';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateExperienceSchema } from '@/lib/validations/portfolio';
+import { revalidatePath } from 'next/cache';
 
 export async function GET() {
   try {
@@ -59,6 +60,9 @@ export async function POST(request: Request) {
         duties: true,
       },
     });
+
+    revalidatePath('/experience');
+    revalidatePath('/api/experience');
 
     return NextResponse.json(experience, { status: 201 });
   } catch (error) {

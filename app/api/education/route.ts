@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateEducationSchema } from '@/lib/validations/portfolio';
+import { revalidatePath } from 'next/cache';
 
 export async function GET() {
   try {
@@ -37,6 +38,9 @@ export async function POST(request: Request) {
     const education = await prisma.education.create({
       data: validationResult.data,
     });
+
+    revalidatePath('/education');
+    revalidatePath('/api/education');
 
     return NextResponse.json(education, { status: 201 });
   } catch (error) {

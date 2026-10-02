@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { CreateProjectSchema } from '@/lib/validations/portfolio';
+import { revalidatePath } from 'next/cache';
 
 export async function GET() {
   try {
@@ -37,6 +38,9 @@ export async function POST(request: Request) {
     const project = await prisma.project.create({
       data: validationResult.data,
     });
+
+    revalidatePath('/project');
+    revalidatePath('/api/project');
 
     return NextResponse.json(project, { status: 201 });
   } catch (error) {

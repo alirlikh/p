@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { UpdateEducationSchema } from '@/lib/validations/portfolio';
+import { revalidatePath } from 'next/cache';
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -28,6 +29,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       data: validationResult.data,
     });
 
+    revalidatePath('/education');
+    revalidatePath('/api/education');
+
     return NextResponse.json(education);
   } catch (error) {
     logger.error('Error updating education entry:', error);
@@ -47,6 +51,9 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     await prisma.education.delete({
       where: { id },
     });
+
+    revalidatePath('/education');
+    revalidatePath('/api/education');
 
     return NextResponse.json({ message: 'Education entry deleted successfully' });
   } catch (error) {

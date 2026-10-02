@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { adminRequiredResponse, requireAdmin } from '@/lib/requireAdmin';
 import { UpdateProjectSchema } from '@/lib/validations/portfolio';
+import { revalidatePath } from 'next/cache';
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -28,6 +29,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       data: validationResult.data,
     });
 
+    revalidatePath('/project');
+    revalidatePath('/api/project');
+
     return NextResponse.json(project);
   } catch (error: unknown) {
     logger.error('Error updating project:', error);
@@ -47,6 +51,9 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     await prisma.project.delete({
       where: { id },
     });
+
+    revalidatePath('/project');
+    revalidatePath('/api/project');
 
     return NextResponse.json({ message: 'Project deleted successfully' });
   } catch (error: unknown) {
