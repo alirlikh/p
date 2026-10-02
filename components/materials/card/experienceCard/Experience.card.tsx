@@ -22,11 +22,11 @@ const ExperienceCard: FC<ExperineceCardProps> = ({ experience }) => {
           </span>
         </div>
         <div className="shrink basis-[70%] order-2">
-          <h4 className="text-purple-300 text-2xl font-bold mb-2">{experience.companyName}</h4>
+          <h3 className="text-purple-300 text-2xl font-bold mb-2">{experience.companyName}</h3>
           <div className="p-2 text-gray-400">
             {experience.dutyDesc?.map((duties: IDuty) => (
               <span key={duties.id}>
-                <h4 className="font-extrabold text-[19px]">{duties.name}</h4>
+                <h5 className="font-extrabold text-[19px]">{duties.name}</h5>
                 <ul className="list-disc px-5">
                   {duties?.duty.map((duty: string, index: number) => (
                     <li className="mx-2" key={index}>

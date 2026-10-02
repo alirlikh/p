@@ -44,9 +44,9 @@ const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
       </div>
       {/* content */}
       <div className="mx-auto p-3 mt-5 text-center space-y-6 mb-3">
-        <h4 className=" font-bold text-3xl capitalize py-3 underline underline-offset-16 decoration-purple-300 ">
+        <h3 className=" font-bold text-3xl capitalize py-3 underline underline-offset-16 decoration-purple-300 ">
           {name}
-        </h4>
+        </h3>
         {/* button */}
         <div>
           <ul className="flex flex-row justify-center items-center *:m-2">
@@ -55,7 +55,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
                 target="_blank"
                 href={githubUrl}
                 rel="noopener noreferrer"
-                aria-label="#"
+                aria-label="Visit project GitHub repository"
               >
                 <GithubIcon />
               </a>
@@ -66,7 +66,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
                 target="_blank"
                 href={demoUrl}
                 rel="noopener noreferrer"
-                aria-label="#"
+                aria-label="Visit project live demo"
               >
                 <EarthIcon />
               </a>
