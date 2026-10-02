@@ -8,7 +8,7 @@ import avatar from '../../../public/images/avatar.jpg';
 
 const LandingBannerSection = () => {
   return (
-    <section className="container mx-auto py-2 px-6 md:px-28 flex flex-col-reverse items-center lg:flex-row md:justify-between md:mt-28">
+    <section className="container mx-auto py-2 px-6 md:px-28 flex flex-col-reverse items-center lg:flex-row md:justify-between ">
       <motion.div
         className="flex flex-col w-full  md:max-w-4xl items-center lg:items-baseline"
         initial={{ x: -100, opacity: 0 }}
