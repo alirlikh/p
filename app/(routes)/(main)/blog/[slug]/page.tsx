@@ -4,13 +4,14 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import ShareButton from '@/components/materials/blogContent/ShareButton';
+import BlogPostDetailSkeleton from '@/components/materials/skeleton/BlogPostDetailSkeleton';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
 import { logger } from '@/lib/logger';
 
 // Lazy load BlogPostContent (uses react-syntax-highlighter ~8.7MB)
 const BlogPostContent = dynamic(
   () => import('@/components/materials/blogContent/BlogPostContent'),
-  { loading: () => <div className="animate-pulse bg-gray-800 h-96 rounded-lg" /> }
+  { loading: () => <BlogPostDetailSkeleton /> }
 );
 
 // Enable ISR

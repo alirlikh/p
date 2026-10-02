@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
-import Loader from '@/components/materials/loader/Loader';
+import ProjectCardSkeleton from '@/components/materials/skeleton/ProjectCardSkeleton';
 import { lazy, Suspense } from 'react';
 
 export const metadata: Metadata = {
@@ -20,7 +20,13 @@ const ProjectPageView = lazy(
 
 const page = () => {
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 px-8 md:px-12">
+        {Array(6).fill(0).map((_, i) => (
+          <ProjectCardSkeleton key={i} />
+        ))}
+      </div>
+    }>
       <ProjectPageView />
     </Suspense>
   );

@@ -1,4 +1,4 @@
-import Loader from "@/components/materials/loader/Loader";
+import EducationCardSkeleton from "@/components/materials/skeleton/EducationCardSkeleton";
 import { lazy, Suspense } from "react";
 
 const EducationList = lazy(
@@ -8,7 +8,13 @@ const EducationList = lazy(
 const EducationPageView = () => {
   return (
     <section className="px-10">
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={
+        <div className="w-full space-y-6">
+          {Array(3).fill(0).map((_, i) => (
+            <EducationCardSkeleton key={i} />
+          ))}
+        </div>
+      }>
         <EducationList />
       </Suspense>
     </section>

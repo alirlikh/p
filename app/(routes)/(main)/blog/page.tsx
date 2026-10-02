@@ -4,14 +4,22 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import BlogFilterBar from '@/components/materials/form/BlogFilterBar';
-import Loader from '@/components/materials/loader/Loader';
+import BlogPostCardSkeleton from '@/components/materials/skeleton/BlogPostCardSkeleton';
 import { SITE_URL } from '@/lib/site';
 import { logger } from '@/lib/logger';
 
 // Lazy load BlogListSection (uses framer-motion heavily)
 const BlogListSection = dynamic(
   () => import('@/components/templates/blogListSection/BlogListSection'),
-  { loading: () => <Loader /> }
+  {
+    loading: () => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 px-8 md:px-12">
+        {Array(9).fill(0).map((_, i) => (
+          <BlogPostCardSkeleton key={i} />
+        ))}
+      </div>
+    )
+  }
 );
 
 // Enable ISR (Incremental Static Regeneration)
@@ -130,7 +138,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       </section>
 
       {/* Blog Posts */}
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 px-8 md:px-12">
+          {Array(9).fill(0).map((_, i) => (
+            <BlogPostCardSkeleton key={i} />
+          ))}
+        </div>
+      }>
         <BlogListSection posts={posts} />
       </Suspense>
 
