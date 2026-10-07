@@ -7,7 +7,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <main className="pt-5 md:pt-36 min-h-[calc(100dvh-170px)]">{children}</main>
+      <main className="pt-5 md:pt-20 min-h-[calc(100dvh-170px)]">{children}</main>
       <GoTop />
       <Footer />
     </>
