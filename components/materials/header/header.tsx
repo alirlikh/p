@@ -1,8 +1,8 @@
-import { JSX } from "react";
-import { GithubIcon } from "../icons/Github.icon";
-import { LinkdinIcon } from "../icons/Linkdin.icon";
-import { MailIcon } from "../icons/Mail.icon";
-import NavLink from "../Link/navLink/Nav.link";
+import { JSX } from 'react';
+import { GithubIcon } from '../icons/Github.icon';
+import { LinkdinIcon } from '../icons/Linkdin.icon';
+import { MailIcon } from '../icons/Mail.icon';
+import NavLink from '../Link/navLink/Nav.link';
 
 export interface IMenu {
   id: number;
@@ -15,43 +15,40 @@ export interface IMenu {
 export default function Header() {
   //TODO: usememo and env file
   const menuItem: IMenu[] = [
-    { id: 1, title: "Alireza", href: "/", isIcon: false },
-    { id: 2, title: "blog", href: "/blog", isIcon: false },
-    { id: 3, title: "project", href: "/project", isIcon: false },
-    { id: 4, title: "experience", href: "/experience", isIcon: false },
-    { id: 5, title: "education", href: "/education", isIcon: false },
+    { id: 1, title: 'Alireza', href: '/', isIcon: false },
+    { id: 2, title: 'blog', href: '/blog', isIcon: false },
+    { id: 3, title: 'project', href: '/project', isIcon: false },
+    { id: 4, title: 'experience', href: '/experience', isIcon: false },
+    { id: 5, title: 'education', href: '/education', isIcon: false },
     {
       id: 6,
-      title: "Linkdin",
-      href: "https://linkedin.com/in/alireza-jalili",
+      title: 'Linkdin',
+      href: 'https://linkedin.com/in/alireza-jalili',
       isIcon: true,
       icon: <LinkdinIcon />,
     },
     {
       id: 7,
-      title: "Github",
-      href: "https://github.com/alirlikh",
+      title: 'Github',
+      href: 'https://github.com/alirlikh',
       isIcon: true,
       icon: <GithubIcon />,
     },
     {
       id: 8,
-      title: "Mail",
-      href: "mailto:alirezajalili.pm@gmail.com",
+      title: 'Mail',
+      href: 'mailto:alirezajalili.pm@gmail.com',
       isIcon: true,
       icon: <MailIcon />,
     },
   ];
   return (
-    <header className="fixed p-3 left-1/2 transform -translate-x-1/2  max-w-80 bottom-16 md:max-w-155.5 md:top-0 md:bottom-auto z-10 ">
+    <header className="fixed p-3 left-1/2 transform -translate-x-1/2 overflow-auto  max-w-[90%] bottom-1 md:max-w-155.5 md:top-0 md:bottom-auto z-10 ">
       <nav className="bg-gray-scale/35  backdrop-blur-xl rounded-full px-5 py-2 ">
         <ul className="flex flex-row p-2 justify-between  items-center overflow-auto  no-scrollbar">
           {menuItem?.map((item: IMenu) =>
             !item.isIcon ? (
-              <li
-                className="mx-3 p-1 my-1 grow flex-1 shrink font-semibold"
-                key={item.id}
-              >
+              <li className="mx-3 p-1 my-1 grow flex-1 shrink font-semibold" key={item.id}>
                 <NavLink href={item.href}>{item.title}</NavLink>
               </li>
             ) : (
@@ -68,7 +65,7 @@ export default function Header() {
                   {item.icon}
                 </a>
               </li>
-            ),
+            )
           )}
         </ul>
       </nav>
