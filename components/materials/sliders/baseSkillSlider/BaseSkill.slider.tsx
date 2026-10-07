@@ -1,18 +1,18 @@
-"use client"
+'use client';
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
-import { JsSliderIcon } from "../../icons/JsSlider.icon";
-import { NextSliderIcon } from "../../icons/NextSlider.icon";
-import { ReactSliderIcon } from "../../icons/ReactSlider.icon";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
+import { JsSliderIcon } from '../../icons/JsSlider.icon';
+import { NextSliderIcon } from '../../icons/NextSlider.icon';
+import { ReactSliderIcon } from '../../icons/ReactSlider.icon';
 
 const BaseSkillSlider = () => {
   const imageSrc = [
-    { src: JsSliderIcon, color: "#C3C99E" },
-    { src: NextSliderIcon, color: "#C2C2C2" },
-    { src: ReactSliderIcon, color: "#7D9CA5" },
+    { src: JsSliderIcon, color: '#C3C99E' },
+    { src: NextSliderIcon, color: '#C2C2C2' },
+    { src: ReactSliderIcon, color: '#7D9CA5' },
   ];
 
   return (
@@ -30,7 +30,6 @@ const BaseSkillSlider = () => {
         clickable: true,
       }}
       modules={[Pagination]}
-      className="mySwiper"
       style={
         {
           //    "--swiper-pagination-color": "#FFBA08",
