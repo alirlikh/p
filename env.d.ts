@@ -19,6 +19,7 @@ declare namespace NodeJS {
 
     // Existing variables
     NEXT_PUBLIC_DOWNLOAD_URL: string;
+    IR_DOWNLOAD_URL: string;
     HOSTNAME: string;
     PORT: string;
     HOST:string;

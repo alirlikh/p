@@ -11,7 +11,7 @@ const DownloadButton = () => {
         />
         <a
           download
-          href={process.env.NEXT_PUBLIC_DOWNLOAD_URL}
+          href="/api/download"
           className=" cursor-pointer mx-3 px-2 ml-0"
         >
           Download CV
