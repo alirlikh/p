@@ -1,22 +1,30 @@
 import { NextResponse } from 'next/server';
 
-export function GET(request: Request): NextResponse {
-  const isIran = request.headers.get('cf-ipcountry')?.toUpperCase() === 'IR';
-  const downloadUrl = isIran ? process.env.IR_DOWNLOAD_URL : process.env.NEXT_PUBLIC_DOWNLOAD_URL;
+export const dynamic = 'force-dynamic';
 
-  if (!downloadUrl || !URL.canParse(downloadUrl)) {
-    return NextResponse.json(
-      { error: 'Download URL is not configured correctly' },
-      { status: 500 }
-    );
+export function GET(): NextResponse {
+  const downloadUrl = process.env.DOWNLOAD_WORKER_URL;
+
+  if (!downloadUrl) {
+    return NextResponse.json({ error: 'Download URL is not configured' }, { status: 500 });
   }
 
-  const targetUrl = new URL(downloadUrl);
-  if (targetUrl.protocol !== 'https:' && targetUrl.protocol !== 'http:') {
-    return NextResponse.json({ error: 'Download URL must use HTTP or HTTPS' }, { status: 500 });
+  let targetUrl: URL;
+
+  try {
+    targetUrl = new URL(downloadUrl);
+  } catch {
+    return NextResponse.json({ error: 'Invalid download URL' }, { status: 500 });
+  }
+
+  if (targetUrl.protocol !== 'https:') {
+    return NextResponse.json({ error: 'Download URL must use HTTPS' }, { status: 500 });
   }
 
   return NextResponse.redirect(targetUrl, {
-    headers: { 'Cache-Control': 'private, no-store' },
+    status: 302,
+    headers: {
+      'Cache-Control': 'private, no-store',
+    },
   });
 }
