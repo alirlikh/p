@@ -27,5 +27,6 @@ declare namespace NodeJS {
     NEXT_PUBLIC_HOSTNAME: string;
     NEXT_PUBLIC_API_BASE_URL: string;
     DOWNLOAD_WORKER_URL:string;
+    DOWNLOAD_BACKUP_URL:string;
   }
 }
